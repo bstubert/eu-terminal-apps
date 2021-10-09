@@ -20,10 +20,10 @@ qt_add_executable(${PROJECT_NAME}
     src/qml.qrc
 )
 
-target_compile_definitions(eu-main-app
+target_compile_definitions(${PROJECT_NAME}
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
-target_link_libraries(eu-main-app
+target_link_libraries(${PROJECT_NAME}
   PRIVATE Qt6::Core Qt6::Quick)
 
 
