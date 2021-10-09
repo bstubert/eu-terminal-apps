@@ -16,8 +16,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 COMPONENTS Core Quick REQUIRED)
 
 qt_add_executable(${PROJECT_NAME}
-    main.cpp
-    qml.qrc
+    src/main.cpp
+    src/qml.qrc
 )
 
 target_compile_definitions(eu-main-app
