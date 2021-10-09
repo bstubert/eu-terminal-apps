@@ -15,6 +15,7 @@ find_package(Qt6 COMPONENTS Core REQUIRED)
 
 qt_add_library(${PROJECT_NAME}
     engine_twin.cpp
+    quantity.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}

@@ -9,6 +9,6 @@ FakeCanBusRouter::FakeCanBusRouter(QObject *parent)
 
 void FakeCanBusRouter::processReceivedFrames()
 {
-    emit engineSpeed(930.0);
+    emit engineSpeed(Quantity{930.0, u"1/min"_qs});
 }
 

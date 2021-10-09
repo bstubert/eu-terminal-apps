@@ -4,6 +4,8 @@
 
 #include <QObject>
 
+#include "quantity.h"
+
 class EngineTwin : public QObject
 {
     Q_OBJECT
@@ -14,8 +16,6 @@ signals:
     /*!
      * When the terminal receives a message with a changed engine speed from the engine ECU,
      * the EngineTwin emits this signal with the engine speed in rpm.
-     * TODO: Send a Quantity object instead of a qreal, because quanties have a unit, an
-     *   admissible value range and more.
      */
-    void engineSpeed(qreal rpm);
+    void engineSpeed(const Quantity &rpm);
 };

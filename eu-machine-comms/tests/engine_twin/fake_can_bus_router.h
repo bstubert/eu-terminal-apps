@@ -4,6 +4,8 @@
 
 #include <QObject>
 
+#include "quantity.h"
+
 class FakeCanBusRouter : public QObject
 {
     Q_OBJECT
@@ -13,6 +15,5 @@ public:
     void processReceivedFrames();
 
 signals:
-    void engineSpeed(qreal rpm);
-
+    void engineSpeed(const Quantity &rpm);
 };
