@@ -8,7 +8,11 @@
 class Quantity
 {
 public:
+    Quantity();
     Quantity(qreal value, const QString &unit);
+
+    qreal value() const;
+    QString unit() const;
 
 private:
     qreal m_value{0.0};
