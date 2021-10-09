@@ -1,18 +1,25 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
+#include <QSignalSpy>
 #include <QtTest>
+
+#include "engine_twin.h"
 
 class TestEngineTwin : public QObject
 {
     Q_OBJECT
 
 private slots:
-    void test1();
+    void testEngineSpeed();
 
 };
 
-void TestEngineTwin::test1()
+void TestEngineTwin::testEngineSpeed()
 {
+    EngineTwin engine;
+    QSignalSpy rpmSpy{&engine, &EngineTwin::engineSpeed};
+    engine.processReceivedFrames();
+    QCOMPARE(rpmSpy.count(), 1);
 }
 
 QTEST_GUILESS_MAIN(TestEngineTwin)

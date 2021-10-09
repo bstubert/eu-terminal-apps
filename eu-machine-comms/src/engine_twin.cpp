@@ -7,3 +7,8 @@ EngineTwin::EngineTwin(QObject *parent)
 {
 
 }
+
+void EngineTwin::processReceivedFrames()
+{
+    emit engineSpeed(930.0);
+}

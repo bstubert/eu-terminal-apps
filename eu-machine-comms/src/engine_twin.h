@@ -10,6 +10,13 @@ class EngineTwin : public QObject
 public:
     explicit EngineTwin(QObject *parent = nullptr);
 
-signals:
+    /*!
+     * May only used for testing to emit the signals from the received messages (e.g., engineSpeed).
+     * TODO: Move this function to FakeCanBusRouter and connect FakeCanBusRouter::engineSpeed with
+     *   EngineTwin::engineSpeed.
+     */
+    void processReceivedFrames();
 
+signals:
+    void engineSpeed(qreal);
 };
