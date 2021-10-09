@@ -2,27 +2,7 @@
 
 cmake_minimum_required(VERSION 3.19)
 
-project(eu-machine-comms VERSION 0.1 LANGUAGES CXX)
+project(eu-machine-comms VERSION 0.1)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-find_package(Qt6 COMPONENTS Core REQUIRED)
-
-qt_add_library(${PROJECT_NAME}
-    src/engine_twin.cpp
-)
-
-target_compile_definitions(${PROJECT_NAME}
-  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt6::Core)
-
+add_subdirectory(src)
 add_subdirectory(tests)
