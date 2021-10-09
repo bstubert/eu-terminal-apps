@@ -1,3 +1,5 @@
+// Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
+
 import QtQuick
 import QtQuick.Window
 
