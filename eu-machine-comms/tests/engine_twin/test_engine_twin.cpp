@@ -38,6 +38,7 @@ void TestEngineTwin::init()
 void TestEngineTwin::cleanup()
 {
     delete m_engine;
+    delete m_router;
 }
 
 void TestEngineTwin::testEngineSpeed()
