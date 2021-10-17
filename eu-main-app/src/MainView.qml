@@ -1,0 +1,30 @@
+// Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
+
+import QtQuick
+
+Rectangle
+{
+    color: "#1800a3" // duke blue
+
+    Text
+    {
+        id: rpmValue
+        width: 160
+        height: 56
+        text: "8830"
+        horizontalAlignment: Text.AlignRight
+        verticalAlignment: Text.AlignVCenter
+        color: "#ebf5ee" // mint cream
+        font.pixelSize: 48
+    }
+
+    Text
+    {
+        anchors.left: rpmValue.right
+        anchors.leftMargin: 8
+        anchors.baseline: rpmValue.baseline
+        text: "rpm"
+        color: "#ebf5ee"
+        font.pixelSize: 24
+    }
+}
