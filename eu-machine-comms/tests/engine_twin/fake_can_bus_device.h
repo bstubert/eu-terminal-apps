@@ -6,11 +6,11 @@
 
 #include "quantity.h"
 
-class FakeCanBusRouter : public QObject
+class FakeCanBusDevice : public QObject
 {
     Q_OBJECT
 public:
-    explicit FakeCanBusRouter(QObject *parent = nullptr);
+    explicit FakeCanBusDevice(QObject *parent = nullptr);
 
     void processReceivedFrames();
 

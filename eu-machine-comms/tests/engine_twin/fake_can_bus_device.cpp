@@ -1,13 +1,13 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
-#include "fake_can_bus_router.h"
+#include "fake_can_bus_device.h"
 
-FakeCanBusRouter::FakeCanBusRouter(QObject *parent)
+FakeCanBusDevice::FakeCanBusDevice(QObject *parent)
     : QObject(parent)
 {
 }
 
-void FakeCanBusRouter::processReceivedFrames()
+void FakeCanBusDevice::processReceivedFrames()
 {
     emit engineSpeed(Quantity{930.0, u"1/min"_qs});
 }
