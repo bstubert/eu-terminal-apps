@@ -16,6 +16,6 @@ TestCase
 
     function test_engine_speed()
     {
-        compare(mv.rpm, 930)
+        compare(mv.rpm, 930.0)
     }
 }
