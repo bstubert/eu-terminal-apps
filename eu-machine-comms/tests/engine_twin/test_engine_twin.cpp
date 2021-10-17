@@ -47,7 +47,7 @@ void TestEngineTwin::testEngineSpeed()
     QCOMPARE(rpmSpy.count(), 1);
     auto rpm = rpmSpy.first().first().value<Quantity>();
     QCOMPARE(rpm.value(), 930.0);
-    QCOMPARE(rpm.unit(), u"1/min"_qs);
+    QCOMPARE(rpm.unit(), u"rpm"_qs);
 }
 
 QTEST_GUILESS_MAIN(TestEngineTwin)
