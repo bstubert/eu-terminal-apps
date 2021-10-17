@@ -9,12 +9,13 @@ TestCase
 
     MainView
     {
+        id: mv
         width: 640
         height: 480
     }
 
     function test_engine_speed()
     {
-        fail("My first QML test is up and running!")
+        compare(mv.rpm, 930)
     }
 }
