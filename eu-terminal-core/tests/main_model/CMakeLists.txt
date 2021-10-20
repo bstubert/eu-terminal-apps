@@ -17,6 +17,7 @@ add_executable(${PROJECT_NAME}
     test_main_model.cpp
     fake_engine_twin.cpp
     ../../src/main_model.cpp
+    ../../src/quantity_object.cpp
     ../../../eu-machine-comms/src/engine_twin.cpp
     ../../../eu-machine-comms/src/quantity.cpp
 )

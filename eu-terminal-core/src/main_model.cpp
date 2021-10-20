@@ -3,20 +3,21 @@
 #include "main_model.h"
 
 MainModel::MainModel(QObject *parent)
-    : QObject(parent)
+    : QObject{parent}
+    , m_engineSpeed{new QuantityObject{parent}}
 {
 }
 
 void MainModel::setEngineSpeed(const Quantity &rpm)
 {
-    if (m_engineSpeed != rpm)
+    if (m_engineSpeed->quantity() != rpm)
     {
-        m_engineSpeed = rpm;
+        m_engineSpeed->setQuantity(rpm);
         emit engineSpeedChanged();
     }
 }
 
-Quantity MainModel::engineSpeed() const
+QuantityObject *MainModel::engineSpeed() const
 {
     return m_engineSpeed;
 }

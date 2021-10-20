@@ -5,17 +5,17 @@
 #include <QObject>
 #include <QtGlobal>
 
-#include "quantity.h"
+#include "quantity_object.h"
 
 class MainModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(Quantity engineSpeed READ engineSpeed NOTIFY engineSpeedChanged)
+    Q_PROPERTY(QuantityObject *engineSpeed READ engineSpeed NOTIFY engineSpeedChanged)
 
 public:
     explicit MainModel(QObject *parent = nullptr);
 
-    Quantity engineSpeed() const;
+    QuantityObject *engineSpeed() const;
 
 public slots:
     // TODO: Rename into receiveEngineSpeed?
@@ -25,5 +25,5 @@ signals:
     void engineSpeedChanged();
 
 private:
-    Quantity m_engineSpeed;
+    QuantityObject *m_engineSpeed;
 };
