@@ -5,13 +5,13 @@
 #include <QQmlEngine>
 #include <QtQuickTest>
 
-#include "main_model.h"
+#include "fake_main_model.h"
 
 class TestMainView : public QObject
 {
     Q_OBJECT
 
-    MainModel m_mainModel;
+    FakeMainModel m_mainModel;
 
 public:
     TestMainView(QObject *parent = nullptr)

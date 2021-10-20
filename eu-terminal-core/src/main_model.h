@@ -19,7 +19,6 @@ public:
 
 public slots:
     void setEngineSpeed(const Quantity &rpm);
-    void setEngineSpeed(qreal rpm);
 
 signals:
     void engineSpeedChanged();

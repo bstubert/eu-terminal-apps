@@ -15,6 +15,7 @@ find_package(Qt6 COMPONENTS QuickTest Qml REQUIRED)
 
 qt_add_executable(${PROJECT_NAME}
     test_main_view.cpp
+    fake_main_model.cpp
     ../../../eu-terminal-core/src/main_model.cpp
     ../../../eu-terminal-core/src/quantity_object.cpp
     ../../../eu-machine-comms/src/quantity.cpp

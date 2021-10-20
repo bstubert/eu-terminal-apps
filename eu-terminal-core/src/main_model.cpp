@@ -17,12 +17,6 @@ void MainModel::setEngineSpeed(const Quantity &rpm)
     }
 }
 
-// TODO: Find a better solution!
-void MainModel::setEngineSpeed(qreal rpm)
-{
-    MainModel::setEngineSpeed(Quantity{rpm, u"rpm"_qs});
-}
-
 QuantityObject *MainModel::engineSpeed() const
 {
     return m_engineSpeed;
