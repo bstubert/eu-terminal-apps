@@ -4,7 +4,7 @@ import QtQuick
 
 Rectangle
 {
-    property real rpm: 8830.0
+    property real rpm: mainModel.engineSpeed
 
     color: "#1800a3" // duke blue
 
