@@ -18,8 +18,8 @@ public:
     QuantityObject *engineSpeed() const;
 
 public slots:
-    // TODO: Rename into receiveEngineSpeed?
     void setEngineSpeed(const Quantity &rpm);
+    void setEngineSpeed(qreal rpm);
 
 signals:
     void engineSpeedChanged();

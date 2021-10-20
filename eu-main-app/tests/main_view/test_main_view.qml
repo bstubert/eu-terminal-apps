@@ -1,3 +1,5 @@
+// Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
+
 import QtQuick
 import QtTest
 
@@ -16,6 +18,7 @@ TestCase
 
     function test_engine_speed()
     {
+        mainModel.setEngineSpeed(930.0);
         compare(mv.rpm, 930.0)
     }
 }
