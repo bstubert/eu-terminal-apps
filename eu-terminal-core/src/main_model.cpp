@@ -9,7 +9,11 @@ MainModel::MainModel(QObject *parent)
 
 void MainModel::setEngineSpeed(const Quantity &rpm)
 {
-    m_engineSpeed = rpm;
+    if (m_engineSpeed != rpm)
+    {
+        m_engineSpeed = rpm;
+        emit engineSpeedChanged();
+    }
 }
 
 Quantity MainModel::engineSpeed() const

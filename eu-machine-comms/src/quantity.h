@@ -23,3 +23,8 @@ inline bool operator==(const Quantity &q1, const Quantity &q2)
 {
     return qFuzzyCompare(q1.value(), q2.value()) && q1.unit() == q2.unit();
 }
+
+inline bool operator!=(const Quantity &q1, const Quantity &q2)
+{
+    return !(q1 == q2);
+}

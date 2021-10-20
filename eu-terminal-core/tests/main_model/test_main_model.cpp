@@ -36,9 +36,11 @@ void TestMainModel::cleanup()
 
 void TestMainModel::testEngineSpeed()
 {
+    QSignalSpy spy{m_model, &MainModel::engineSpeedChanged};
     Quantity rpm{930.0, "rpm"};
     m_engine->emitEngineSpeed(rpm);
     QCOMPARE(m_model->engineSpeed(), rpm);
+    QCOMPARE(spy.count(), 1);
 }
 
 QTEST_GUILESS_MAIN(TestMainModel)
