@@ -17,7 +17,7 @@ private slots:
     void testEngineSpeed();
 
 private:
-    FakeCanBusDevice *m_router;
+    FakeCanBusDevice *m_canDevice;
     EngineTwin *m_engine;
 
 };
@@ -29,22 +29,22 @@ private:
  */
 void TestEngineTwin::init()
 {
-    m_router = new FakeCanBusDevice{};
+    m_canDevice = new FakeCanBusDevice{};
     m_engine = new EngineTwin{};
-    connect(m_router, &FakeCanBusDevice::engineSpeed,
+    connect(m_canDevice, &FakeCanBusDevice::engineSpeed,
             m_engine, &EngineTwin::engineSpeed);
 }
 
 void TestEngineTwin::cleanup()
 {
     delete m_engine;
-    delete m_router;
+    delete m_canDevice;
 }
 
 void TestEngineTwin::testEngineSpeed()
 {
     QSignalSpy rpmSpy{m_engine, &EngineTwin::engineSpeed};
-    m_router->processReceivedFrames();
+    m_canDevice->processReceivedFrames();
     QCOMPARE(rpmSpy.count(), 1);
     auto rpm = rpmSpy.first().first().value<Quantity>();
     QCOMPARE(rpm.value(), 930.0);

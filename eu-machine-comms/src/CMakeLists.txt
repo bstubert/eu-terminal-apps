@@ -18,5 +18,7 @@ qt6_add_library(${PROJECT_NAME}
     quantity.cpp
 )
 
+add_library(EmUse::MachineComms ALIAS MachineComms)
+
 target_link_libraries(${PROJECT_NAME}
   PRIVATE Qt6::Core)
