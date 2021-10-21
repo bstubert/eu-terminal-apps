@@ -13,12 +13,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 COMPONENTS Core REQUIRED)
 
-qt6_add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME} SHARED
     engine_twin.cpp
     quantity.cpp
+
+    can_bus_simulator.cpp
 )
 
-add_library(EmUse::MachineComms ALIAS MachineComms)
+add_library(EmUse::MachineComms ALIAS ${PROJECT_NAME})
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC .)
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE Qt6::Core)

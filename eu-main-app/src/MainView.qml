@@ -13,7 +13,7 @@ Rectangle
         id: rpmText
         width: 160
         height: 56
-        text: rpm
+        text: Number(mainModel.engineSpeed.value).toFixed(0)
         horizontalAlignment: Text.AlignRight
         verticalAlignment: Text.AlignVCenter
         color: "#ebf5ee" // mint cream
@@ -26,7 +26,7 @@ Rectangle
         anchors.left: rpmText.right
         anchors.leftMargin: 8
         anchors.baseline: rpmText.baseline
-        text: "rpm"
+        text: mainModel.engineSpeed.unit
         color: "#ebf5ee"
         font.pixelSize: 24
     }

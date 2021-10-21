@@ -4,16 +4,21 @@
 
 #include <QObject>
 
+class QTimeLine;
+
 class Quantity;
 
-class FakeCanBusDevice : public QObject
+class CanBusSimulator : public QObject
 {
     Q_OBJECT
-public:
-    explicit FakeCanBusDevice(QObject *parent = nullptr);
 
-    void processReceivedFrames();
+public:
+    explicit CanBusSimulator(QObject *parent = nullptr);
+    void start();
 
 signals:
     void engineSpeed(const Quantity &rpm);
+
+private:
+    QTimeLine *m_timeLine;
 };
