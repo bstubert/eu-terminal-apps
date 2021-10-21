@@ -3,6 +3,7 @@
 #pragma once
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QString>
 #include <QtGlobal>
 
@@ -11,6 +12,8 @@
 class QuantityObject : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+
     Q_PROPERTY(qreal value READ value NOTIFY quantityChanged)
     Q_PROPERTY(QString unit READ unit NOTIFY quantityChanged)
 
