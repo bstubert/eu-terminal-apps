@@ -9,6 +9,7 @@
 #include "main_model.h"
 #include "machine_comms_coordinator.h"
 #include "terminal_core_coordinator.h"
+#include "terminal_core_singleton.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,9 +17,9 @@ int main(int argc, char *argv[])
 
     MachineCommsCoordinator machineComms;
     TerminalCoreCoordinator terminalCore{&machineComms};
+    TerminalCoreSingleton::setInstance(&terminalCore);
 
     QQmlApplicationEngine appEngine;
-    appEngine.rootContext()->setContextProperty(u"mainModel"_qs, terminalCore.mainModel());
     appEngine.load(u"qrc:/main.qml"_qs);
 
     return app.exec();

@@ -6,7 +6,7 @@ import TerminalCore.Models
 
 Rectangle
 {
-    property QuantityObject engineSpeed: mainModel.engineSpeed
+    property MainModel model: TerminalCore.mainModel
 
     color: "#1800a3" // duke blue
 
@@ -15,7 +15,7 @@ Rectangle
         id: rpmText
         width: 160
         height: 56
-        text: Number(engineSpeed.value).toFixed(0)
+        text: Number(model.engineSpeed.value).toFixed(0)
         horizontalAlignment: Text.AlignRight
         verticalAlignment: Text.AlignVCenter
         color: "#ebf5ee" // mint cream
@@ -28,7 +28,7 @@ Rectangle
         anchors.left: rpmText.right
         anchors.leftMargin: 8
         anchors.baseline: rpmText.baseline
-        text: engineSpeed.unit
+        text: model.engineSpeed.unit
         color: "#ebf5ee"
         font.pixelSize: 24
     }

@@ -21,7 +21,10 @@ qt6_add_qml_module(${PROJECT_NAME}
     VERSION 0.1
     PLUGIN_TARGET QmlModuleTerminalCoreModels
     SOURCES
-        main_model.cpp quantity_object.cpp terminal_core_coordinator.cpp
+        main_model.cpp
+        quantity_object.cpp
+        terminal_core_coordinator.cpp
+        terminal_core_singleton.cpp
 )
 
 add_library(EmUse::TerminalCoreModels ALIAS ${PROJECT_NAME})
