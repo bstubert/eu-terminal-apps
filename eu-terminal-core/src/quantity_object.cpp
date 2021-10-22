@@ -23,7 +23,6 @@ void QuantityObject::setQuantity(const Quantity &quantity)
 
 qreal QuantityObject::value() const
 {
-    qDebug() << "### QuantityObject::value: " << m_quantity.value();
     return m_quantity.value();
 }
 
