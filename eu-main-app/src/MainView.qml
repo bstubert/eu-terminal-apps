@@ -2,13 +2,11 @@
 
 import QtQuick
 
+import TerminalCore.Models
+
 Rectangle
 {
-    // Causes an error, because QuantityObject is not recognised as a type.
-    // Probably fixed by importing a model like TerminalCore.Models
-//    property QuantityObject engineSpeed: mainModel.engineSpeed
-
-    property QtObject engineSpeed: mainModel.engineSpeed
+    property QuantityObject engineSpeed: mainModel.engineSpeed
 
     color: "#1800a3" // duke blue
 

@@ -13,10 +13,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 COMPONENTS Core Qml REQUIRED)
 
-add_library(${PROJECT_NAME} SHARED
-    main_model.cpp
-    quantity_object.cpp
-    terminal_core_coordinator.cpp
+qt6_add_library(${PROJECT_NAME} SHARED
+)
+
+qt6_add_qml_module(${PROJECT_NAME}
+    URI TerminalCore.Models
+    VERSION 0.1
+    PLUGIN_TARGET QmlModuleTerminalCoreModels
+    SOURCES
+        main_model.cpp quantity_object.cpp terminal_core_coordinator.cpp
 )
 
 add_library(EmUse::TerminalCoreModels ALIAS ${PROJECT_NAME})
