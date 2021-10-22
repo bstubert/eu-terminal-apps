@@ -16,6 +16,7 @@ find_package(Qt6 COMPONENTS Core Qml REQUIRED)
 add_library(${PROJECT_NAME} SHARED
     main_model.cpp
     quantity_object.cpp
+    terminal_core_coordinator.cpp
 )
 
 add_library(EmUse::TerminalCore ALIAS ${PROJECT_NAME})

@@ -8,19 +8,17 @@
 #include "engine_twin.h"
 #include "main_model.h"
 #include "machine_comms_coordinator.h"
+#include "terminal_core_coordinator.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
     MachineCommsCoordinator machineComms;
-    MainModel mainModel;
-
-    QObject::connect(machineComms.engine(), &EngineTwin::engineSpeed,
-                     &mainModel, &MainModel::setEngineSpeed);
+    TerminalCoreCoordinator terminalCore{&machineComms};
 
     QQmlApplicationEngine appEngine;
-    appEngine.rootContext()->setContextProperty(u"mainModel"_qs, &mainModel);
+    appEngine.rootContext()->setContextProperty(u"mainModel"_qs, terminalCore.mainModel());
     appEngine.load(u"qrc:/main.qml"_qs);
 
     return app.exec();
