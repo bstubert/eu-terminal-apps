@@ -15,9 +15,9 @@ find_package(Qt6 COMPONENTS Core REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED
     engine_twin.cpp
+    machine_comms_coordinator.cpp
     quantity.cpp
-
-    can_bus_simulator.cpp
+    private/can_bus_simulator.cpp
 )
 
 add_library(EmUse::MachineComms ALIAS ${PROJECT_NAME})

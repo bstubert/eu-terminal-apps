@@ -5,28 +5,23 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "can_bus_simulator.h"
 #include "engine_twin.h"
 #include "main_model.h"
+#include "machine_comms_coordinator.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    CanBusSimulator simulator;
-    EngineTwin engine;
+    MachineCommsCoordinator machineComms;
     MainModel mainModel;
 
-    QObject::connect(&simulator, &CanBusSimulator::engineSpeed,
-                     &engine, &EngineTwin::engineSpeed);
-    QObject::connect(&engine, &EngineTwin::engineSpeed,
+    QObject::connect(machineComms.engine(), &EngineTwin::engineSpeed,
                      &mainModel, &MainModel::setEngineSpeed);
 
     QQmlApplicationEngine appEngine;
     appEngine.rootContext()->setContextProperty(u"mainModel"_qs, &mainModel);
     appEngine.load(u"qrc:/main.qml"_qs);
-
-    simulator.start();
 
     return app.exec();
 }

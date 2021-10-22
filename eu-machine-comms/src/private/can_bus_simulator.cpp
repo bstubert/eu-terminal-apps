@@ -1,7 +1,7 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
 #include <QTimeLine>
-#include <QtDebug>
+#include <QTimer>
 
 #include "can_bus_simulator.h"
 #include "quantity.h"
@@ -17,6 +17,7 @@ CanBusSimulator::CanBusSimulator(QObject *parent)
             {
                 emit engineSpeed(Quantity{value * 2200.0, u"rpm"_qs});
             });
+    m_timeLine->start();
 }
 
 void CanBusSimulator::start()
