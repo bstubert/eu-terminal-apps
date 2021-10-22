@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.19)
 
-project(TerminalCore VERSION 0.1 LANGUAGES CXX)
+project(TerminalCoreModels VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -19,7 +19,7 @@ add_library(${PROJECT_NAME} SHARED
     terminal_core_coordinator.cpp
 )
 
-add_library(EmUse::TerminalCore ALIAS ${PROJECT_NAME})
+add_library(EmUse::TerminalCoreModels ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC .)
