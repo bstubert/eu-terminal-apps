@@ -16,8 +16,8 @@ find_package(Qt6 COMPONENTS Core Test Qml REQUIRED)
 add_executable(${PROJECT_NAME}
     test_main_model.cpp
     fake_engine_twin.cpp
-    ../../BusinessLogic/Models/main_model.cpp
-    ../../BusinessLogic/Models/quantity_object.cpp
+    ../../EmUse/Models/main_model.cpp
+    ../../EmUse/Models/quantity_object.cpp
     ../../../eu-machine/src/engine_twin.cpp
     ../../../eu-machine/src/quantity.cpp
 )
@@ -29,7 +29,7 @@ add_test(
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE
-        ../../BusinessLogic/Models
+        ../../EmUse/Models
         ../../../eu-machine/src
 )
 

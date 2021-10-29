@@ -2,7 +2,7 @@
 
 import QtQuick
 
-import BusinessLogic.Models
+import EmUse.Models
 
 Rectangle
 {
