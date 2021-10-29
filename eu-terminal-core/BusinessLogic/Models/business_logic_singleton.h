@@ -12,7 +12,7 @@ class BusinessLogicSingleton
     Q_GADGET
     QML_FOREIGN(BusinessLogicCoordinator)
     QML_SINGLETON
-    QML_NAMED_ELEMENT(TerminalCore)
+    QML_NAMED_ELEMENT(BusinessLogic)
 
 public:
     static void setInstance(BusinessLogicCoordinator *instance);

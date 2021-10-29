@@ -2,11 +2,11 @@
 
 import QtQuick
 
-import TerminalCore.Models
+import BusinessLogic.Models
 
 Rectangle
 {
-    property MainModel model: TerminalCore.mainModel
+    property MainModel model: BusinessLogic.mainModel
 
     color: "#1800a3" // duke blue
 

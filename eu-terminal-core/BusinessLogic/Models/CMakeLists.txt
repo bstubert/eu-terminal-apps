@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.19)
 
-project(TerminalCoreModels VERSION 0.1 LANGUAGES CXX)
+project(BusinessLogicModels VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -17,9 +17,9 @@ qt6_add_library(${PROJECT_NAME} SHARED
 )
 
 qt6_add_qml_module(${PROJECT_NAME}
-    URI TerminalCore.Models
+    URI BusinessLogic.Models
     VERSION 0.1
-    PLUGIN_TARGET QmlModuleTerminalCoreModels
+    PLUGIN_TARGET QmlModuleBusinessLogicModels
     SOURCES
         main_model.cpp
         quantity_object.cpp
@@ -27,7 +27,7 @@ qt6_add_qml_module(${PROJECT_NAME}
         business_logic_singleton.cpp
 )
 
-add_library(EmUse::TerminalCoreModels ALIAS ${PROJECT_NAME})
+add_library(EmUse::BusinessLogicModels ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC .)
