@@ -5,19 +5,19 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include "terminal_core_coordinator.h"
+#include "business_logic_coordinator.h"
 
 class TerminalCoreSingleton
 {
     Q_GADGET
-    QML_FOREIGN(TerminalCoreCoordinator)
+    QML_FOREIGN(BusinessLogicCoordinator)
     QML_SINGLETON
     QML_NAMED_ELEMENT(TerminalCore)
 
 public:
-    static void setInstance(TerminalCoreCoordinator *instance);
-    static TerminalCoreCoordinator *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
+    static void setInstance(BusinessLogicCoordinator *instance);
+    static BusinessLogicCoordinator *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
 
 private:
-    static TerminalCoreCoordinator *m_instance;
+    static BusinessLogicCoordinator *m_instance;
 };

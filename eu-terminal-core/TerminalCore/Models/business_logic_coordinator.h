@@ -4,18 +4,19 @@
 
 #include <QObject>
 
-class MainModel;
+#include "main_model.h"
+
 class MachineCoordinator;
 
-class TerminalCoreCoordinator : public QObject
+class BusinessLogicCoordinator : public QObject
 {
     Q_OBJECT
 
     Q_PROPERTY(MainModel *mainModel READ mainModel CONSTANT)
 
 public:
-    explicit TerminalCoreCoordinator(MachineCoordinator *machineComms, QObject *parent = nullptr);
-    virtual ~TerminalCoreCoordinator();
+    explicit BusinessLogicCoordinator(MachineCoordinator *machineComms, QObject *parent = nullptr);
+    virtual ~BusinessLogicCoordinator();
 
     MainModel *mainModel() const;
 

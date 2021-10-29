@@ -2,14 +2,14 @@
 
 #include "terminal_core_singleton.h"
 
-TerminalCoreCoordinator *TerminalCoreSingleton::m_instance = nullptr;
+BusinessLogicCoordinator *TerminalCoreSingleton::m_instance = nullptr;
 
-void TerminalCoreSingleton::setInstance(TerminalCoreCoordinator *instance)
+void TerminalCoreSingleton::setInstance(BusinessLogicCoordinator *instance)
 {
     m_instance = instance;
 }
 
-TerminalCoreCoordinator *TerminalCoreSingleton::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+BusinessLogicCoordinator *TerminalCoreSingleton::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
 {
     Q_ASSERT(m_instance != nullptr);
     Q_ASSERT(jsEngine->thread() == m_instance->thread());
