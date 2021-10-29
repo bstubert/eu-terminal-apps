@@ -5,7 +5,7 @@
 #include <QObject>
 
 class MainModel;
-class MachineCommsCoordinator;
+class MachineCoordinator;
 
 class TerminalCoreCoordinator : public QObject
 {
@@ -14,11 +14,11 @@ class TerminalCoreCoordinator : public QObject
     Q_PROPERTY(MainModel *mainModel READ mainModel CONSTANT)
 
 public:
-    explicit TerminalCoreCoordinator(MachineCommsCoordinator *machineComms, QObject *parent = nullptr);
+    explicit TerminalCoreCoordinator(MachineCoordinator *machineComms, QObject *parent = nullptr);
     virtual ~TerminalCoreCoordinator();
 
     MainModel *mainModel() const;
 
 private:
-    MachineCommsCoordinator *m_machineComms;
+    MachineCoordinator *m_machineComms;
 };

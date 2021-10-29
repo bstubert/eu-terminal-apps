@@ -2,10 +2,10 @@
 
 #include "engine_twin.h"
 #include "main_model.h"
-#include "machine_comms_coordinator.h"
+#include "machine_coordinator.h"
 #include "terminal_core_coordinator.h"
 
-TerminalCoreCoordinator::TerminalCoreCoordinator(MachineCommsCoordinator *machineComms,
+TerminalCoreCoordinator::TerminalCoreCoordinator(MachineCoordinator *machineComms,
                                                  QObject *parent)
     : QObject(parent)
     , m_machineComms{machineComms}

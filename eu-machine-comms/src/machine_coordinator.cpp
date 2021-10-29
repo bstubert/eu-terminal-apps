@@ -1,27 +1,27 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
 #include "engine_twin.h"
-#include "machine_comms_coordinator.h"
+#include "machine_coordinator.h"
 #include "private/can_bus_simulator.h"
 
-struct MachineCommsCoordinator::Impl
+struct MachineCoordinator::Impl
 {
     CanBusSimulator m_simulator{nullptr};
     EngineTwin m_engine{nullptr};
 };
 
-MachineCommsCoordinator::MachineCommsCoordinator()
+MachineCoordinator::MachineCoordinator()
     : m_impl{new Impl{}}
 {
     QObject::connect(&m_impl->m_simulator, &CanBusSimulator::engineSpeed,
                      &m_impl->m_engine, &EngineTwin::engineSpeed);
 }
 
-MachineCommsCoordinator::~MachineCommsCoordinator()
+MachineCoordinator::~MachineCoordinator()
 {
 }
 
-EngineTwin *MachineCommsCoordinator::engine() const
+EngineTwin *MachineCoordinator::engine() const
 {
     return &m_impl->m_engine;
 }

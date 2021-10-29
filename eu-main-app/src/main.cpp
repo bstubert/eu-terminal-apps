@@ -7,7 +7,7 @@
 
 #include "engine_twin.h"
 #include "main_model.h"
-#include "machine_comms_coordinator.h"
+#include "machine_coordinator.h"
 #include "terminal_core_coordinator.h"
 #include "terminal_core_singleton.h"
 
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    MachineCommsCoordinator machineComms;
+    MachineCoordinator machineComms;
     TerminalCoreCoordinator terminalCore{&machineComms};
     TerminalCoreSingleton::setInstance(&terminalCore);
 
