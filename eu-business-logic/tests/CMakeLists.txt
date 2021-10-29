@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.19)
 
-project(eu-terminal-core-tests)
+project(eu-business-logic-tests)
 
 include(CTest)
 add_subdirectory(main_model)
