@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.19)
 
-project(MachineComms VERSION 0.1 LANGUAGES CXX)
+project(Machine VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -20,7 +20,7 @@ add_library(${PROJECT_NAME} SHARED
     private/can_bus_simulator.cpp
 )
 
-add_library(EmUse::MachineComms ALIAS ${PROJECT_NAME})
+add_library(EmUse::Machine ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC .)

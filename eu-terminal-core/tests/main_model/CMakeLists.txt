@@ -18,8 +18,8 @@ add_executable(${PROJECT_NAME}
     fake_engine_twin.cpp
     ../../TerminalCore/Models/main_model.cpp
     ../../TerminalCore/Models/quantity_object.cpp
-    ../../../eu-machine-comms/src/engine_twin.cpp
-    ../../../eu-machine-comms/src/quantity.cpp
+    ../../../eu-machine/src/engine_twin.cpp
+    ../../../eu-machine/src/quantity.cpp
 )
 
 add_test(
@@ -30,7 +30,7 @@ add_test(
 target_include_directories(${PROJECT_NAME}
     PRIVATE
         ../../TerminalCore/Models
-        ../../../eu-machine-comms/src
+        ../../../eu-machine/src
 )
 
 target_link_libraries(${PROJECT_NAME}

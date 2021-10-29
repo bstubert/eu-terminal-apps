@@ -23,6 +23,6 @@ target_compile_definitions(${PROJECT_NAME}
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt6::Core Qt6::Quick EmUse::MachineComms EmUse::TerminalCoreModels)
+  PRIVATE Qt6::Core Qt6::Quick EmUse::Machine EmUse::TerminalCoreModels)
 
 

@@ -33,4 +33,4 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC .)
 
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt6::Core Qt6::Qml EmUse::MachineComms)
+  PRIVATE Qt6::Core Qt6::Qml EmUse::Machine)
