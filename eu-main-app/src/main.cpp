@@ -9,7 +9,7 @@
 #include "main_model.h"
 #include "machine_coordinator.h"
 #include "business_logic_coordinator.h"
-#include "terminal_core_singleton.h"
+#include "business_logic_singleton.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
     MachineCoordinator machineComms;
     BusinessLogicCoordinator terminalCore{&machineComms};
-    TerminalCoreSingleton::setInstance(&terminalCore);
+    BusinessLogicSingleton::setInstance(&terminalCore);
 
     QQmlApplicationEngine appEngine;
     appEngine.load(u"qrc:/main.qml"_qs);

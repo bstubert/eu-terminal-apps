@@ -24,7 +24,7 @@ qt6_add_qml_module(${PROJECT_NAME}
         main_model.cpp
         quantity_object.cpp
         business_logic_coordinator.cpp
-        terminal_core_singleton.cpp
+        business_logic_singleton.cpp
 )
 
 add_library(EmUse::TerminalCoreModels ALIAS ${PROJECT_NAME})

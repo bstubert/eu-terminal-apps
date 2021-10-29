@@ -7,7 +7,7 @@
 
 #include "business_logic_coordinator.h"
 
-class TerminalCoreSingleton
+class BusinessLogicSingleton
 {
     Q_GADGET
     QML_FOREIGN(BusinessLogicCoordinator)
