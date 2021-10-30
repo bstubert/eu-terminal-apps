@@ -15,11 +15,11 @@ class BusinessLogicCoordinator : public QObject
     Q_PROPERTY(MainModel *mainModel READ mainModel CONSTANT)
 
 public:
-    explicit BusinessLogicCoordinator(MachineCoordinator *machineComms, QObject *parent = nullptr);
+    explicit BusinessLogicCoordinator(MachineCoordinator *machine, QObject *parent = nullptr);
     virtual ~BusinessLogicCoordinator();
 
     MainModel *mainModel() const;
 
 private:
-    MachineCoordinator *m_machineComms;
+    MachineCoordinator *m_machine;
 };

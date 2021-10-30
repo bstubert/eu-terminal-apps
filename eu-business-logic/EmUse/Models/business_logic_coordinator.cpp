@@ -5,10 +5,10 @@
 #include "machine_coordinator.h"
 #include "business_logic_coordinator.h"
 
-BusinessLogicCoordinator::BusinessLogicCoordinator(MachineCoordinator *machineComms,
+BusinessLogicCoordinator::BusinessLogicCoordinator(MachineCoordinator *machine,
                                                  QObject *parent)
     : QObject(parent)
-    , m_machineComms{machineComms}
+    , m_machine{machine}
 {
 }
 
@@ -24,7 +24,7 @@ MainModel *BusinessLogicCoordinator::mainModel() const
     if (s_mainModel == nullptr)
     {
         s_mainModel = new MainModel{};
-        connect(m_machineComms->engine(), &EngineTwin::engineSpeed,
+        connect(m_machine->engine(), &EngineTwin::engineSpeed,
                 s_mainModel, &MainModel::setEngineSpeed);
 
     }
