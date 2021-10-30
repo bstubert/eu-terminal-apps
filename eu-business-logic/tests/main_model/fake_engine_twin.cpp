@@ -3,7 +3,10 @@
 #include "fake_engine_twin.h"
 #include "quantity.h"
 
-FakeEngineTwin::FakeEngineTwin(QObject *parent)
-    : EngineTwin(parent)
+FakeEngineTwin::FakeEngineTwin()
+{
+}
+
+FakeEngineTwin::~FakeEngineTwin()
 {
 }

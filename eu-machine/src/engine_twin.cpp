@@ -2,7 +2,10 @@
 
 #include "engine_twin.h"
 
-EngineTwin::EngineTwin(QObject *parent)
-    : QObject(parent)
+EngineTwin::EngineTwin()
+{
+}
+
+EngineTwin::~EngineTwin()
 {
 }

@@ -18,7 +18,7 @@ add_executable(${PROJECT_NAME}
     fake_engine_twin.cpp
     ../../EmUse/Models/main_model.cpp
     ../../EmUse/Models/quantity_object.cpp
-    ../../../eu-machine/src/engine_twin.cpp
+    ../../../eu-machine/src/abstract_engine_twin.h
     ../../../eu-machine/src/quantity.cpp
 )
 

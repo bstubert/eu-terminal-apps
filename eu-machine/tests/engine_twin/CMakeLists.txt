@@ -15,6 +15,7 @@ find_package(Qt6 COMPONENTS Core Test REQUIRED)
 
 add_executable(${PROJECT_NAME}
     test_engine_twin.cpp
+    ../../src/abstract_engine_twin.h
     ../../src/engine_twin.cpp
     ../../src/quantity.cpp
     fake_can_bus_device.cpp

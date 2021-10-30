@@ -2,13 +2,12 @@
 
 #pragma once
 
-#include <QObject>
+#include "abstract_engine_twin.h"
 
-#include "engine_twin.h"
-
-class FakeEngineTwin : public EngineTwin
+class FakeEngineTwin : public AbstractEngineTwin
 {
     Q_OBJECT
 public:
-    explicit FakeEngineTwin(QObject *parent = nullptr);
+    explicit FakeEngineTwin();
+    virtual ~FakeEngineTwin();
 };

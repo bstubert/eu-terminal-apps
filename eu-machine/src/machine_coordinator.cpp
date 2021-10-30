@@ -7,7 +7,7 @@
 struct MachineCoordinator::Impl
 {
     CanBusSimulator m_simulator{nullptr};
-    EngineTwin m_engine{nullptr};
+    EngineTwin m_engine{};
 };
 
 MachineCoordinator::MachineCoordinator()

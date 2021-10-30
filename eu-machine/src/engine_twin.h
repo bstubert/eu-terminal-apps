@@ -2,20 +2,13 @@
 
 #pragma once
 
-#include <QObject>
+#include "abstract_engine_twin.h"
 
-#include "quantity.h"
-
-class EngineTwin : public QObject
+class EngineTwin : public AbstractEngineTwin
 {
     Q_OBJECT
-public:
-    explicit EngineTwin(QObject *parent = nullptr);
 
-signals:
-    /*!
-     * When the terminal receives a message with a changed engine speed from the engine ECU,
-     * the EngineTwin emits this signal with the engine speed in rpm.
-     */
-    void engineSpeed(const Quantity &rpm);
+public:
+    explicit EngineTwin();
+    virtual ~EngineTwin();
 };
