@@ -7,8 +7,3 @@ FakeEngineTwin::FakeEngineTwin(QObject *parent)
     : EngineTwin(parent)
 {
 }
-
-void FakeEngineTwin::emitEngineSpeed(const Quantity &rpm)
-{
-    emit engineSpeed(rpm);
-}

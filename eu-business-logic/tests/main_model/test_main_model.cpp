@@ -38,7 +38,7 @@ void TestMainModel::testEngineSpeed()
 {
     QSignalSpy spy{m_model, &MainModel::engineSpeedChanged};
     Quantity rpm{930.0, "rpm"};
-    m_engine->emitEngineSpeed(rpm);
+    emit m_engine->engineSpeed(rpm);
     QCOMPARE(m_model->engineSpeed()->quantity(), rpm);
     QCOMPARE(spy.count(), 1);
 }

@@ -11,6 +11,4 @@ class FakeEngineTwin : public EngineTwin
     Q_OBJECT
 public:
     explicit FakeEngineTwin(QObject *parent = nullptr);
-
-    void emitEngineSpeed(const Quantity &rpm);
 };
