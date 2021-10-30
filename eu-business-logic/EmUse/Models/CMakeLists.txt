@@ -24,13 +24,14 @@ qt6_add_qml_module(${PROJECT_NAME}
         main_model.cpp
         quantity_object.cpp
         business_logic_coordinator.cpp
-        business_logic_singleton.cpp
+        private/business_logic_singleton.cpp
 )
 
 add_library(EmUse::BusinessLogicModels ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
-    PUBLIC .)
+    PUBLIC .
+    PRIVATE private)
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE Qt6::Core Qt6::Qml EmUse::Machine)

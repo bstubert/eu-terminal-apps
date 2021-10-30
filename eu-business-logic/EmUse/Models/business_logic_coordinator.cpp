@@ -4,12 +4,16 @@
 #include "main_model.h"
 #include "machine_coordinator.h"
 #include "business_logic_coordinator.h"
+#include "business_logic_singleton.h"
+
 
 BusinessLogicCoordinator::BusinessLogicCoordinator(MachineCoordinator *machine,
                                                  QObject *parent)
     : QObject(parent)
     , m_machine{machine}
 {
+    BusinessLogicSingleton::setInstance(this);
+
 }
 
 BusinessLogicCoordinator::~BusinessLogicCoordinator()
