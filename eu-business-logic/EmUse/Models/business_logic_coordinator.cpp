@@ -16,6 +16,8 @@ BusinessLogicCoordinator::~BusinessLogicCoordinator()
 {
 }
 
+// NOTE: We cannot move the connections to main(), because this function is called by the QML
+// item MainView and the MainModel object is deleted by the QML engine.
 MainModel *BusinessLogicCoordinator::mainModel() const
 {
     static MainModel *s_mainModel = nullptr;

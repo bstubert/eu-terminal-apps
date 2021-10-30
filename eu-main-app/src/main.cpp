@@ -15,9 +15,9 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    MachineCoordinator machineComms;
-    BusinessLogicCoordinator terminalCore{&machineComms};
-    BusinessLogicSingleton::setInstance(&terminalCore);
+    MachineCoordinator machine;
+    BusinessLogicCoordinator businessLogic{&machine};
+    BusinessLogicSingleton::setInstance(&businessLogic);
 
     QQmlApplicationEngine appEngine;
     appEngine.load(u"qrc:/main.qml"_qs);
