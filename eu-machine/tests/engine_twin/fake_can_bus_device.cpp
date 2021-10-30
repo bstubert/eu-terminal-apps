@@ -8,8 +8,3 @@ FakeCanBusDevice::FakeCanBusDevice(QObject *parent)
 {
 }
 
-void FakeCanBusDevice::processReceivedFrames()
-{
-    emit engineSpeed(Quantity{930.0, u"rpm"_qs});
-}
-

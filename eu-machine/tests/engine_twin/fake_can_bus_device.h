@@ -12,8 +12,6 @@ class FakeCanBusDevice : public QObject
 public:
     explicit FakeCanBusDevice(QObject *parent = nullptr);
 
-    void processReceivedFrames();
-
 signals:
     void engineSpeed(const Quantity &rpm);
 };

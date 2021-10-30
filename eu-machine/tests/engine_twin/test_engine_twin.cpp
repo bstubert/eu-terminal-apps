@@ -44,7 +44,7 @@ void TestEngineTwin::cleanup()
 void TestEngineTwin::testEngineSpeed()
 {
     QSignalSpy rpmSpy{m_engine, &EngineTwin::engineSpeed};
-    m_canDevice->processReceivedFrames();
+    emit m_canDevice->engineSpeed(Quantity{930.0, u"rpm"_qs});
     QCOMPARE(rpmSpy.count(), 1);
     auto rpm = rpmSpy.first().first().value<Quantity>();
     QCOMPARE(rpm.value(), 930.0);
