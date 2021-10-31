@@ -6,7 +6,7 @@
 
 #include "main_model.h"
 
-class MachineCoordinator;
+class Machine;
 
 class BusinessLogicCoordinator : public QObject
 {
@@ -15,11 +15,11 @@ class BusinessLogicCoordinator : public QObject
     Q_PROPERTY(MainModel *mainModel READ mainModel CONSTANT)
 
 public:
-    explicit BusinessLogicCoordinator(MachineCoordinator *machine, QObject *parent = nullptr);
+    explicit BusinessLogicCoordinator(Machine *machine, QObject *parent = nullptr);
     virtual ~BusinessLogicCoordinator();
 
     MainModel *mainModel() const;
 
 private:
-    MachineCoordinator *m_machine;
+    Machine *m_machine;
 };

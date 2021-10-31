@@ -6,13 +6,13 @@
 
 class EngineTwin;
 
-class MachineCoordinator
+class Machine
 {
 public:
-    MachineCoordinator();
-    MachineCoordinator(const MachineCoordinator &) = delete;
-    MachineCoordinator &operator=(const MachineCoordinator &) = delete;
-    ~MachineCoordinator();
+    Machine();
+    Machine(const Machine &) = delete;
+    Machine &operator=(const Machine &) = delete;
+    ~Machine();
 
     EngineTwin *engine() const;
 

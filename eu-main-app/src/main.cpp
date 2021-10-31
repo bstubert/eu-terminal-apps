@@ -5,14 +5,14 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "machine_coordinator.h"
+#include "machine.h"
 #include "business_logic_coordinator.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    MachineCoordinator machine;
+    Machine machine;
     BusinessLogicCoordinator businessLogic{&machine};
 
     QQmlApplicationEngine appEngine;
