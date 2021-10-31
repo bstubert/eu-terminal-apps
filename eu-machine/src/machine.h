@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "engine_twin.h"
+class EngineTwin;
 
 class Machine
 {
