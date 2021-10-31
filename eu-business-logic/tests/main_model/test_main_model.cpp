@@ -3,7 +3,7 @@
 #include <QSignalSpy>
 #include <QtTest>
 
-#include "fake_engine_twin.h"
+#include "engine_twin.h"
 #include "main_model.h"
 
 class TestMainModel : public QObject
@@ -16,15 +16,15 @@ private slots:
     void testEngineSpeed();
 
 private:
-    FakeEngineTwin *m_engine;
+    EngineTwin *m_engine;
     MainModel *m_model;
 };
 
 void TestMainModel::init()
 {
-    m_engine = new FakeEngineTwin{};
+    m_engine = new EngineTwin{};
     m_model = new MainModel{};
-    connect(m_engine, &FakeEngineTwin::engineSpeed,
+    connect(m_engine, &EngineTwin::engineSpeed,
             m_model, &MainModel::setEngineSpeed);
 }
 
