@@ -2,9 +2,7 @@
 
 #pragma once
 
-#include <memory>
-
-class EngineTwin;
+#include "engine_twin.h"
 
 class Machine
 {
@@ -16,14 +14,7 @@ public:
         Mock
     };
 
-    Machine();
-    Machine(const Machine &) = delete;
-    Machine &operator=(const Machine &) = delete;
-    ~Machine();
+    virtual ~Machine();
 
-    EngineTwin *engine() const;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> m_impl;
+    virtual EngineTwin *engine() const = 0;
 };

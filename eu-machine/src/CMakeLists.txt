@@ -19,6 +19,7 @@ add_library(${PROJECT_NAME} SHARED
     machine_creator.cpp
     quantity.cpp
     private/can_bus_simulator.cpp
+    private/simulator_machine.cpp
 )
 
 add_library(EmUse::Machine ALIAS ${PROJECT_NAME})
