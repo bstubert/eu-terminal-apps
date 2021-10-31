@@ -3,11 +3,11 @@
 #include "engine_twin.h"
 #include "main_model.h"
 #include "machine.h"
-#include "business_logic_coordinator.h"
+#include "business_logic.h"
 #include "business_logic_singleton.h"
 
 
-BusinessLogicCoordinator::BusinessLogicCoordinator(std::shared_ptr<Machine> machine,
+BusinessLogic::BusinessLogic(std::shared_ptr<Machine> machine,
                                                    QObject *parent)
     : QObject(parent)
     , m_machine{machine}
@@ -16,13 +16,13 @@ BusinessLogicCoordinator::BusinessLogicCoordinator(std::shared_ptr<Machine> mach
 
 }
 
-BusinessLogicCoordinator::~BusinessLogicCoordinator()
+BusinessLogic::~BusinessLogic()
 {
 }
 
 // NOTE: We cannot move the connections to main(), because this function is called by the QML
 // item MainView and the MainModel object is deleted by the QML engine.
-MainModel *BusinessLogicCoordinator::mainModel() const
+MainModel *BusinessLogic::mainModel() const
 {
     static MainModel *s_mainModel = nullptr;
     if (s_mainModel == nullptr)

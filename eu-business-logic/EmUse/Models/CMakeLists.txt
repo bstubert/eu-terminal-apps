@@ -23,7 +23,7 @@ qt6_add_qml_module(${PROJECT_NAME}
     SOURCES
         main_model.cpp
         quantity_object.cpp
-        business_logic_coordinator.cpp
+        business_logic.cpp
         private/business_logic_singleton.cpp
 )
 

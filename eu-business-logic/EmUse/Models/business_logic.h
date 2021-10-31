@@ -10,15 +10,15 @@
 
 class Machine;
 
-class BusinessLogicCoordinator : public QObject
+class BusinessLogic : public QObject
 {
     Q_OBJECT
 
     Q_PROPERTY(MainModel *mainModel READ mainModel CONSTANT)
 
 public:
-    explicit BusinessLogicCoordinator(std::shared_ptr<Machine> machine, QObject *parent = nullptr);
-    virtual ~BusinessLogicCoordinator();
+    explicit BusinessLogic(std::shared_ptr<Machine> machine, QObject *parent = nullptr);
+    virtual ~BusinessLogic();
 
     MainModel *mainModel() const;
 

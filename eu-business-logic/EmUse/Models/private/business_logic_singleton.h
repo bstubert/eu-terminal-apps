@@ -5,19 +5,19 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include "business_logic_coordinator.h"
+#include "business_logic.h"
 
 class BusinessLogicSingleton
 {
     Q_GADGET
-    QML_FOREIGN(BusinessLogicCoordinator)
+    QML_FOREIGN(BusinessLogic)
     QML_SINGLETON
     QML_NAMED_ELEMENT(BusinessLogic)
 
 public:
-    static void setInstance(BusinessLogicCoordinator *instance);
-    static BusinessLogicCoordinator *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
+    static void setInstance(BusinessLogic *instance);
+    static BusinessLogic *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
 
 private:
-    static BusinessLogicCoordinator *m_instance;
+    static BusinessLogic *m_instance;
 };

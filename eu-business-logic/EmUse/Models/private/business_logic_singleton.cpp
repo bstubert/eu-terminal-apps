@@ -2,14 +2,14 @@
 
 #include "business_logic_singleton.h"
 
-BusinessLogicCoordinator *BusinessLogicSingleton::m_instance = nullptr;
+BusinessLogic *BusinessLogicSingleton::m_instance = nullptr;
 
-void BusinessLogicSingleton::setInstance(BusinessLogicCoordinator *instance)
+void BusinessLogicSingleton::setInstance(BusinessLogic *instance)
 {
     m_instance = instance;
 }
 
-BusinessLogicCoordinator *BusinessLogicSingleton::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+BusinessLogic *BusinessLogicSingleton::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
 {
     Q_ASSERT(m_instance != nullptr);
     Q_ASSERT(jsEngine->thread() == m_instance->thread());
