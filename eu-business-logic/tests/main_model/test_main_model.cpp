@@ -5,6 +5,7 @@
 
 #include "engine_twin.h"
 #include "main_model.h"
+#include "machine_creator.h"
 
 class TestMainModel : public QObject
 {
@@ -16,29 +17,30 @@ private slots:
     void testEngineSpeed();
 
 private:
+    Machine *m_machine;
     EngineTwin *m_engine;
     MainModel *m_model;
 };
 
 void TestMainModel::init()
 {
-    m_engine = new EngineTwin{};
+    m_machine = createMachine(Machine::Configuration::Mock);
     m_model = new MainModel{};
-    connect(m_engine, &EngineTwin::engineSpeed,
+    connect(m_machine->engine(), &EngineTwin::engineSpeed,
             m_model, &MainModel::setEngineSpeed);
 }
 
 void TestMainModel::cleanup()
 {
     delete m_model;
-    delete m_engine;
+    delete m_machine;
 }
 
 void TestMainModel::testEngineSpeed()
 {
     QSignalSpy spy{m_model, &MainModel::engineSpeedChanged};
     Quantity rpm{930.0, "rpm"};
-    emit m_engine->engineSpeed(rpm);
+    emit m_machine->engine()->engineSpeed(rpm);
     QCOMPARE(m_model->engineSpeed()->quantity(), rpm);
     QCOMPARE(spy.count(), 1);
 }

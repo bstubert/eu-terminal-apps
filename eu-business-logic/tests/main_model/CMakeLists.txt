@@ -17,8 +17,6 @@ add_executable(${PROJECT_NAME}
     test_main_model.cpp
     ../../EmUse/Models/main_model.cpp
     ../../EmUse/Models/quantity_object.cpp
-    ../../../eu-machine/src/engine_twin.cpp
-    ../../../eu-machine/src/quantity.cpp
 )
 
 add_test(
@@ -29,9 +27,8 @@ add_test(
 target_include_directories(${PROJECT_NAME}
     PRIVATE
         ../../EmUse/Models
-        ../../../eu-machine/src
 )
 
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt6::Core Qt6::Test Qt6::Qml)
+  PRIVATE Qt6::Core Qt6::Test Qt6::Qml EmUse::Machine)
 
