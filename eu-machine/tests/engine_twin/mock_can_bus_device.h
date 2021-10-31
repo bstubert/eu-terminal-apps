@@ -6,11 +6,11 @@
 
 class Quantity;
 
-class FakeCanBusDevice : public QObject
+class MockCanBusDevice : public QObject
 {
     Q_OBJECT
 public:
-    explicit FakeCanBusDevice(QObject *parent = nullptr);
+    explicit MockCanBusDevice(QObject *parent = nullptr);
 
 signals:
     void engineSpeed(const Quantity &rpm);

@@ -4,7 +4,7 @@
 #include <QtTest>
 
 #include "engine_twin.h"
-#include "fake_can_bus_device.h"
+#include "mock_can_bus_device.h"
 #include "quantity.h"
 
 class TestEngineTwin : public QObject
@@ -17,7 +17,7 @@ private slots:
     void testEngineSpeed();
 
 private:
-    FakeCanBusDevice *m_canDevice;
+    MockCanBusDevice *m_canDevice;
     EngineTwin *m_engine;
 
 };
@@ -29,9 +29,9 @@ private:
  */
 void TestEngineTwin::init()
 {
-    m_canDevice = new FakeCanBusDevice{};
+    m_canDevice = new MockCanBusDevice{};
     m_engine = new EngineTwin{};
-    connect(m_canDevice, &FakeCanBusDevice::engineSpeed,
+    connect(m_canDevice, &MockCanBusDevice::engineSpeed,
             m_engine, &EngineTwin::engineSpeed);
 }
 
