@@ -6,3 +6,5 @@ project(eu-machine-comms-tests)
 
 include(CTest)
 add_subdirectory(engine_twin)
+add_subdirectory(can_bus_device)
+
