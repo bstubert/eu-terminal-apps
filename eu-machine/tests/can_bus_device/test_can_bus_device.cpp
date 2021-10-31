@@ -22,10 +22,14 @@ private:
 void TestCanBusDevice::init()
 {
     m_canDevice = new MockCanBusDevice{};
+    QVERIFY(m_canDevice->connectDevice());
+    QCOMPARE(m_canDevice->state(), QCanBusDevice::ConnectedState);
 }
 
 void TestCanBusDevice::cleanup()
 {
+    m_canDevice->disconnectDevice();
+    QCOMPARE(m_canDevice->state(), QCanBusDevice::UnconnectedState);
     delete m_canDevice;
 }
 

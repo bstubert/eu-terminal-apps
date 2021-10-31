@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include <QObject>
+#include <QCanBusDevice>
 
 class Quantity;
 
-class MockCanBusDevice : public QObject
+class MockCanBusDevice : public QCanBusDevice
 {
     Q_OBJECT
 public:
@@ -14,4 +14,12 @@ public:
 
 signals:
     void engineSpeed(const Quantity &rpm);
+
+public:
+    bool writeFrame(const QCanBusFrame &frame) override;
+    QString interpretErrorFrame(const QCanBusFrame &errorFrame) override;
+
+protected:
+    bool open() override;
+    void close() override;
 };
