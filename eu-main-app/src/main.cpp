@@ -5,15 +5,15 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "machine.h"
+#include "machine_creator.h"
 #include "business_logic_coordinator.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    Machine machine;
-    BusinessLogicCoordinator businessLogic{&machine};
+    auto machine = createMachine(Machine::Configuration::Simulator);
+    BusinessLogicCoordinator businessLogic{machine};
 
     QQmlApplicationEngine appEngine;
     appEngine.load(u"qrc:/main.qml"_qs);

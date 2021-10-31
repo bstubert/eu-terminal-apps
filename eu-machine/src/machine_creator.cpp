@@ -1,0 +1,17 @@
+// Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
+
+#include <QtGlobal>
+
+#include "machine_creator.h"
+
+Machine *createMachine(Machine::Configuration configuration)
+{
+    switch (configuration)
+    {
+    case Machine::Configuration::Simulator:
+        return new Machine{};
+    default:
+        Q_ASSERT_X(false, __PRETTY_FUNCTION__, "Unsupported machine configuration!");
+        return nullptr;
+    }
+}

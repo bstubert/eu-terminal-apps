@@ -17,6 +17,7 @@ add_library(${PROJECT_NAME} SHARED
     abstract_engine_twin.h
     engine_twin.cpp
     machine.cpp
+    machine_creator.cpp
     quantity.cpp
     private/can_bus_simulator.cpp
 )

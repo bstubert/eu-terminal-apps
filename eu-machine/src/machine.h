@@ -9,6 +9,13 @@ class EngineTwin;
 class Machine
 {
 public:
+    enum class Configuration
+    {
+        Product,
+        Simulator,
+        Mock
+    };
+
     Machine();
     Machine(const Machine &) = delete;
     Machine &operator=(const Machine &) = delete;
