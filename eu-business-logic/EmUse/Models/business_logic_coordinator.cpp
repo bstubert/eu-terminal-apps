@@ -7,8 +7,8 @@
 #include "business_logic_singleton.h"
 
 
-BusinessLogicCoordinator::BusinessLogicCoordinator(Machine *machine,
-                                                 QObject *parent)
+BusinessLogicCoordinator::BusinessLogicCoordinator(std::shared_ptr<Machine> machine,
+                                                   QObject *parent)
     : QObject(parent)
     , m_machine{machine}
 {

@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include <QObject>
 
 #include "main_model.h"
@@ -15,11 +17,11 @@ class BusinessLogicCoordinator : public QObject
     Q_PROPERTY(MainModel *mainModel READ mainModel CONSTANT)
 
 public:
-    explicit BusinessLogicCoordinator(Machine *machine, QObject *parent = nullptr);
+    explicit BusinessLogicCoordinator(std::shared_ptr<Machine> machine, QObject *parent = nullptr);
     virtual ~BusinessLogicCoordinator();
 
     MainModel *mainModel() const;
 
 private:
-    Machine *m_machine;
+    std::shared_ptr<Machine> m_machine;
 };

@@ -1,5 +1,7 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
+#include <memory>
+
 #include <QGuiApplication>
 #include <QObject>
 #include <QQmlApplicationEngine>
@@ -12,7 +14,7 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    auto machine = createMachine(Machine::Configuration::Simulator);
+    std::shared_ptr<Machine> machine{createMachine(Machine::Configuration::Simulator)};
     BusinessLogicCoordinator businessLogic{machine};
 
     QQmlApplicationEngine appEngine;
