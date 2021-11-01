@@ -26,6 +26,7 @@ add_test(
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE
+        ../../src/private
         ../../src
 )
 

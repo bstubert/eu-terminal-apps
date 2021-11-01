@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <QList>
 #include <QObject>
 
 #include "quantity.h"
@@ -13,6 +14,13 @@ class EngineTwin : public QObject
 public:
     explicit EngineTwin();
     virtual ~EngineTwin();
+
+public slots:
+    /*!
+     * Receives a \a quantityColl from the Engine ECU via the CanBusRouter. Emits a signal for each
+     * changed quantity (e.g., engineSpeed()).
+     */
+    void updateQuantities(const QList<Quantity> &quantityColl);
 
 signals:
     /*!

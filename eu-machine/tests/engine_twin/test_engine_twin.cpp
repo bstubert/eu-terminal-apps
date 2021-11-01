@@ -1,5 +1,6 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
+#include <QList>
 #include <QSignalSpy>
 #include <QtTest>
 
@@ -16,8 +17,7 @@ private slots:
     void testEngineSpeed();
 
 signals:
-    // TODO: Once available use MockCanBusRouter to emit engineSpeed() signal.
-    void engineSpeed(const Quantity &rpm);
+    void updatedEngineQuantities(const QList<Quantity> &quantityColl);
 
 private:
     EngineTwin *m_engine;
@@ -26,8 +26,8 @@ private:
 void TestEngineTwin::init()
 {
     m_engine = new EngineTwin{};
-    connect(this, &TestEngineTwin::engineSpeed,
-            m_engine, &EngineTwin::engineSpeed);
+    connect(this, &TestEngineTwin::updatedEngineQuantities,
+            m_engine, &EngineTwin::updateQuantities);
 }
 
 void TestEngineTwin::cleanup()
@@ -38,7 +38,7 @@ void TestEngineTwin::cleanup()
 void TestEngineTwin::testEngineSpeed()
 {
     QSignalSpy rpmSpy{m_engine, &EngineTwin::engineSpeed};
-    emit engineSpeed(Quantity{930.0, u"rpm"_qs});
+    emit updatedEngineQuantities({Quantity{930.0, u"rpm"_qs}});
     QCOMPARE(rpmSpy.count(), 1);
     auto rpm = rpmSpy.first().first().value<Quantity>();
     QCOMPARE(rpm.value(), 930.0);
