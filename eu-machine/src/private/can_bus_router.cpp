@@ -1,5 +1,7 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
+#include <QtEndian>
+
 #include "can_bus_router.h"
 
 namespace
@@ -31,7 +33,9 @@ void CanBusRouter::onFramesReceived()
     {
         if (isFrameFromEngine(frame.frameId()))
         {
-            quantityColl.append(Quantity{930.0, u"rpm"_qs});
+            auto payload = frame.payload();
+            auto rpm = qFromLittleEndian<quint16>(payload.data() + 3) * 0.125;
+            quantityColl.append(Quantity{rpm, u"rpm"_qs});
         }
     }
     emit updatedEngineQuantities(quantityColl);

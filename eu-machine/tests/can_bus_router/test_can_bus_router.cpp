@@ -18,7 +18,8 @@ private slots:
     void testOneFrameForwardedToEngine();
 
 private:
-    const QCanBusFrame eec1{0xCF00400, QByteArray::fromHex("0011223344556677")};
+    const QCanBusFrame eec1_930{0xCF00400, QByteArray::fromHex("001122101d556677")};
+    const QCanBusFrame eec1_1017{0xCF00400, QByteArray::fromHex("001122c81f556677")};
     const QCanBusFrame ic1{0x18FEF601, QByteArray::fromHex("0011223344556677")};
 
     MockCanBusDevice *m_canBus;
@@ -40,14 +41,17 @@ void TestCanBusRouter::cleanup()
 void TestCanBusRouter::testOneFrameForwardedToEngine_data()
 {
     QTest::addColumn<QList<QCanBusFrame>>("incomingFrames");
+    QTest::addColumn<qreal>("rpm");
 
-    QTest::newRow("1 in / 1 out") << QList<QCanBusFrame>{eec1};
-    QTest::newRow("2 in / 1 out") << QList<QCanBusFrame>{ic1, eec1};
+    QTest::newRow("1 in / 1 out (930 rpm)") << QList<QCanBusFrame>{eec1_930} << 930.0;
+    QTest::newRow("1 in / 1 out (1017 rpm)") << QList<QCanBusFrame>{eec1_1017} << 1017.0;
+    QTest::newRow("2 in / 1 out (930 rpm)") << QList<QCanBusFrame>{ic1, eec1_930} << 930.0;
 }
 
 void TestCanBusRouter::testOneFrameForwardedToEngine()
 {
     QFETCH(QList<QCanBusFrame>, incomingFrames);
+    QFETCH(qreal, rpm);
 
     QSignalSpy spy{m_router, &CanBusRouter::updatedEngineQuantities};
     m_canBus->appendIncomingFrames(incomingFrames);
@@ -56,7 +60,7 @@ void TestCanBusRouter::testOneFrameForwardedToEngine()
     QCOMPARE(quantityColl.count(), 1);
     auto quantity = quantityColl.first();
     QCOMPARE(quantity.unit(), u"rpm"_qs);
-    QCOMPARE(quantity.value(), 930.0);
+    QCOMPARE(quantity.value(), rpm);
 }
 
 QTEST_GUILESS_MAIN(TestCanBusRouter)
