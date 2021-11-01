@@ -11,6 +11,8 @@ class MockCanBusDevice : public QCanBusDevice
     Q_OBJECT
 public:
     explicit MockCanBusDevice(QObject *parent = nullptr);
+
+public slots:
     void appendIncomingFrame(const QCanBusFrame &frame);
     void appendIncomingFrames(const QList<QCanBusFrame> &frames);
 

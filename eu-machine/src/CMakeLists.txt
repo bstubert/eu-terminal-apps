@@ -20,6 +20,7 @@ add_library(${PROJECT_NAME} SHARED
     quantity.cpp
     private/can_bus_router.cpp
     private/can_bus_simulator.cpp
+    private/mock_can_bus_device.cpp
     private/mock_machine.cpp
     private/simulator_machine.cpp
 )

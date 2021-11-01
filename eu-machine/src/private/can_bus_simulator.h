@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <QCanBusFrame>
 #include <QObject>
 #include <QTimeLine>
 
@@ -15,7 +16,10 @@ public:
     explicit CanBusSimulator(QObject *parent = nullptr);
 
 signals:
-    void engineSpeed(const Quantity &rpm);
+    void incomingFrames(const QList<QCanBusFrame> &frameColl);
+
+private slots:
+    void onEngineSpeedChanged(qreal value);
 
 private:
     QTimeLine m_rpmTimeLine;
