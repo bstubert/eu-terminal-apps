@@ -1,7 +1,7 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
 #include "engine_twin.h"
-#include "can_bus_simulator.h"
+#include "private/can_bus_simulator.h"
 #include "private/simulator_machine.h"
 
 struct SimulatorMachine::Impl

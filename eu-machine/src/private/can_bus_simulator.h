@@ -3,8 +3,7 @@
 #pragma once
 
 #include <QObject>
-
-class QTimeLine;
+#include <QTimeLine>
 
 class Quantity;
 
@@ -14,11 +13,10 @@ class CanBusSimulator : public QObject
 
 public:
     explicit CanBusSimulator(QObject *parent = nullptr);
-    void start();
 
 signals:
     void engineSpeed(const Quantity &rpm);
 
 private:
-    QTimeLine *m_timeLine;
+    QTimeLine m_rpmTimeLine;
 };
