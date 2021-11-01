@@ -17,7 +17,6 @@ add_executable(${PROJECT_NAME}
     test_engine_twin.cpp
     ../../src/engine_twin.cpp
     ../../src/quantity.cpp
-    mock_can_bus_device.cpp
 )
 
 add_test(

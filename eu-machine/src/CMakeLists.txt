@@ -11,13 +11,14 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 COMPONENTS Core REQUIRED)
+find_package(Qt6 COMPONENTS Core SerialBus REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED
     engine_twin.cpp
     machine.cpp
     machine_creator.cpp
     quantity.cpp
+    private/can_bus_router.cpp
     private/can_bus_simulator.cpp
     private/mock_machine.cpp
     private/simulator_machine.cpp
@@ -29,4 +30,4 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC .)
 
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt6::Core)
+  PRIVATE Qt6::Core Qt6::SerialBus)

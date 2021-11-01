@@ -15,6 +15,9 @@ find_package(Qt6 COMPONENTS Core Test SerialBus REQUIRED)
 
 add_executable(${PROJECT_NAME}
     test_can_bus_router.cpp
+    ../doubles/mock_can_bus_device.cpp
+    ../../src/private/can_bus_router.cpp
+    ../../src/quantity.cpp
 )
 
 add_test(
@@ -24,7 +27,9 @@ add_test(
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE
+        ../doubles
         ../../src
+        ../../src/private
 )
 
 target_link_libraries(${PROJECT_NAME}
