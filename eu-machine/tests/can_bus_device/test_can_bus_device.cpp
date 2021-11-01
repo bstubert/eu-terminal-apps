@@ -1,10 +1,10 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
+#include <QCanBusFrame>
 #include <QSignalSpy>
 #include <QtTest>
 
 #include "mock_can_bus_device.h"
-//#include "quantity.h"
 
 class TestCanBusDevice : public QObject
 {
@@ -13,9 +13,10 @@ class TestCanBusDevice : public QObject
 private slots:
     void init();
     void cleanup();
-    void testEngineSpeed();
+    void testReceivingOneFrame();
 
 private:
+    const QCanBusFrame eec1{0xCF00400, QByteArray::fromHex("0011223344556677")};
     MockCanBusDevice *m_canDevice;
 };
 
@@ -33,9 +34,13 @@ void TestCanBusDevice::cleanup()
     delete m_canDevice;
 }
 
-void TestCanBusDevice::testEngineSpeed()
+void TestCanBusDevice::testReceivingOneFrame()
 {
-    QVERIFY(true);
+    QSignalSpy spy{m_canDevice, &MockCanBusDevice::framesReceived};
+    m_canDevice->appendIncomingFrame(eec1);
+    QCOMPARE(spy.count(), 1);
+    auto frames = m_canDevice->readAllFrames();
+    QCOMPARE(frames.first().toString(), eec1.toString());
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)

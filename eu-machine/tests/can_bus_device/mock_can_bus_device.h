@@ -4,16 +4,12 @@
 
 #include <QCanBusDevice>
 
-class Quantity;
-
 class MockCanBusDevice : public QCanBusDevice
 {
     Q_OBJECT
 public:
     explicit MockCanBusDevice(QObject *parent = nullptr);
-
-signals:
-    void engineSpeed(const Quantity &rpm);
+    void appendIncomingFrame(const QCanBusFrame &frame);
 
 public:
     bool writeFrame(const QCanBusFrame &frame) override;
