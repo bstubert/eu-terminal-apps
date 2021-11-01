@@ -3,6 +3,8 @@
 #pragma once
 
 #include <QCanBusDevice>
+#include <QCanBusFrame>
+#include <QList>
 
 class MockCanBusDevice : public QCanBusDevice
 {
@@ -10,6 +12,7 @@ class MockCanBusDevice : public QCanBusDevice
 public:
     explicit MockCanBusDevice(QObject *parent = nullptr);
     void appendIncomingFrame(const QCanBusFrame &frame);
+    void appendIncomingFrames(const QList<QCanBusFrame> &frames);
 
 public:
     bool writeFrame(const QCanBusFrame &frame) override;

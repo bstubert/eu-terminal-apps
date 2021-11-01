@@ -10,7 +10,12 @@ MockCanBusDevice::MockCanBusDevice(QObject *parent)
 
 void MockCanBusDevice::appendIncomingFrame(const QCanBusFrame &frame)
 {
-    QCanBusDevice::enqueueReceivedFrames({frame});
+    appendIncomingFrames({frame});
+}
+
+void MockCanBusDevice::appendIncomingFrames(const QList<QCanBusFrame> &frames)
+{
+    QCanBusDevice::enqueueReceivedFrames(frames);
 }
 
 bool MockCanBusDevice::writeFrame(const QCanBusFrame &frame)

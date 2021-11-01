@@ -14,10 +14,12 @@ class TestCanBusRouter : public QObject
 private slots:
     void init();
     void cleanup();
-    void testForwardingToEngine();
+    void testOneFrameForwardedToEngine_data();
+    void testOneFrameForwardedToEngine();
 
 private:
     const QCanBusFrame eec1{0xCF00400, QByteArray::fromHex("0011223344556677")};
+    const QCanBusFrame ic1{0x18FEF601, QByteArray::fromHex("0011223344556677")};
 
     MockCanBusDevice *m_canBus;
     CanBusRouter *m_router;
@@ -35,10 +37,20 @@ void TestCanBusRouter::cleanup()
     delete m_canBus;
 }
 
-void TestCanBusRouter::testForwardingToEngine()
+void TestCanBusRouter::testOneFrameForwardedToEngine_data()
 {
+    QTest::addColumn<QList<QCanBusFrame>>("incomingFrames");
+
+    QTest::newRow("1 in / 1 out") << QList<QCanBusFrame>{eec1};
+    QTest::newRow("2 in / 1 out") << QList<QCanBusFrame>{ic1, eec1};
+}
+
+void TestCanBusRouter::testOneFrameForwardedToEngine()
+{
+    QFETCH(QList<QCanBusFrame>, incomingFrames);
+
     QSignalSpy spy{m_router, &CanBusRouter::updatedEngineQuantities};
-    m_canBus->appendIncomingFrame(eec1);
+    m_canBus->appendIncomingFrames(incomingFrames);
     QCOMPARE(spy.count(), 1);
     auto quantityColl = spy.first().first().value<QList<Quantity>>();
     QCOMPARE(quantityColl.count(), 1);
