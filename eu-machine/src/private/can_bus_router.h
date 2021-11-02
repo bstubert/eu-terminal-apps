@@ -16,7 +16,7 @@ public:
     virtual ~CanBusRouter();
 
 signals:
-    void updatedEngineQuantities(const QList<Quantity> &quantityColl);
+    void newEngineQuantities(const QList<Quantity> &quantityColl);
 
 private slots:
     void onFramesReceived();

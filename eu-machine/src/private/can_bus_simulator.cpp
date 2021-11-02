@@ -21,5 +21,5 @@ void CanBusSimulator::onEngineSpeedChanged(qreal value)
 {
     QByteArray payload(8, 0);
     qToLittleEndian<quint16>(static_cast<quint16>(qRound(value * 24000.0)), payload.data() + 3);
-    emit incomingFrames({QCanBusFrame{0xCF00400, payload}});
+    emit newIncomingFrames({QCanBusFrame{0xCF00400, payload}});
 }

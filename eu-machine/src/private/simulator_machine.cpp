@@ -18,9 +18,9 @@ SimulatorMachine::SimulatorMachine()
     : Machine{}
     , m_impl{new Impl{}}
 {
-    QObject::connect(&m_impl->m_simulator, &CanBusSimulator::incomingFrames,
+    QObject::connect(&m_impl->m_simulator, &CanBusSimulator::newIncomingFrames,
                      &m_impl->m_canBus, &MockCanBusDevice::appendIncomingFrames);
-    QObject::connect(&m_impl->m_router, &CanBusRouter::updatedEngineQuantities,
+    QObject::connect(&m_impl->m_router, &CanBusRouter::newEngineQuantities,
                      &m_impl->m_engine, &EngineTwin::updateQuantities);
 }
 

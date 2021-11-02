@@ -38,5 +38,5 @@ void CanBusRouter::onFramesReceived()
             quantityColl.append(Quantity{rpm, u"rpm"_qs});
         }
     }
-    emit updatedEngineQuantities(quantityColl);
+    emit newEngineQuantities(quantityColl);
 }

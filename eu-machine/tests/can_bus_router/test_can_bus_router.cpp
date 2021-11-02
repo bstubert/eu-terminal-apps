@@ -53,7 +53,7 @@ void TestCanBusRouter::testOneFrameForwardedToEngine()
     QFETCH(QList<QCanBusFrame>, incomingFrames);
     QFETCH(qreal, rpm);
 
-    QSignalSpy spy{m_router, &CanBusRouter::updatedEngineQuantities};
+    QSignalSpy spy{m_router, &CanBusRouter::newEngineQuantities};
     m_canBus->appendIncomingFrames(incomingFrames);
     QCOMPARE(spy.count(), 1);
     auto quantityColl = spy.first().first().value<QList<Quantity>>();

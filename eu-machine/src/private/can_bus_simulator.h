@@ -16,7 +16,7 @@ public:
     explicit CanBusSimulator(QObject *parent = nullptr);
 
 signals:
-    void incomingFrames(const QList<QCanBusFrame> &frameColl);
+    void newIncomingFrames(const QList<QCanBusFrame> &frameColl);
 
 private slots:
     void onEngineSpeedChanged(qreal value);
