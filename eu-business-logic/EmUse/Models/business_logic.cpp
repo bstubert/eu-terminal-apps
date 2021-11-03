@@ -8,7 +8,7 @@
 
 
 BusinessLogic::BusinessLogic(std::shared_ptr<Machine> machine,
-                                                   QObject *parent)
+                             QObject *parent)
     : QObject(parent)
     , m_machine{machine}
 {
