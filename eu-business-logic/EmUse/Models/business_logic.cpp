@@ -20,17 +20,14 @@ BusinessLogic::~BusinessLogic()
 {
 }
 
-// NOTE: We cannot move the connections to main(), because this function is called by the QML
-// item MainView and the MainModel object is deleted by the QML engine.
-MainModel *BusinessLogic::mainModel() const
-{
-    static MainModel *s_mainModel = nullptr;
-    if (s_mainModel == nullptr)
-    {
-        s_mainModel = new MainModel{};
-        connect(m_machine->engine(), &EngineTwin::engineSpeed,
-                s_mainModel, &MainModel::setEngineSpeed);
 
+MainModel *BusinessLogic::mainModel()
+{
+    if (m_mainModel == nullptr)
+    {
+        m_mainModel = new MainModel{this};
+        connect(m_machine->engine(), &EngineTwin::engineSpeed,
+                m_mainModel, &MainModel::setEngineSpeed);
     }
-    return s_mainModel;
+    return m_mainModel;
 }

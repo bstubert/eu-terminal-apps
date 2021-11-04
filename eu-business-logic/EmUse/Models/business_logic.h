@@ -20,8 +20,9 @@ public:
     explicit BusinessLogic(std::shared_ptr<Machine> machine, QObject *parent = nullptr);
     virtual ~BusinessLogic();
 
-    MainModel *mainModel() const;
+    MainModel *mainModel();
 
 private:
     std::shared_ptr<Machine> m_machine;
+    MainModel *m_mainModel{nullptr};
 };
