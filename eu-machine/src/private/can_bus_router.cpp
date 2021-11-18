@@ -33,9 +33,26 @@ void CanBusRouter::onFramesReceived()
     {
         if (isFrameFromEngine(frame.frameId()))
         {
-            auto payload = frame.payload();
-            auto rpm = qFromLittleEndian<quint16>(payload.data() + 3) * 0.125;
-            quantityColl.append(Quantity{rpm, u"rpm"_qs});
+            switch (frame.frameId())
+            {
+            case 0xCF00400:
+            {
+                auto payload = frame.payload();
+                auto rpm = qFromLittleEndian<quint16>(payload.data() + 3) / 8.0;
+                quantityColl.append(Quantity{rpm, u"rpm"_qs});
+                break;
+            }
+            case 0x18FEF100:
+            {
+                auto payload = frame.payload();
+                auto kph = qFromLittleEndian<quint16>(payload.data() + 1) / 256.0;
+                quantityColl.append(Quantity{kph, u"kph"_qs});
+                break;
+            }
+            default:
+                break;
+            }
+
         }
     }
     emit newEngineQuantities(quantityColl);
