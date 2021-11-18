@@ -14,18 +14,23 @@ class MainModel : public QObject
     QML_ELEMENT
 
     Q_PROPERTY(QuantityObject *engineSpeed READ engineSpeed NOTIFY engineSpeedChanged)
+    Q_PROPERTY(QuantityObject *vehicleSpeed READ vehicleSpeed NOTIFY vehicleSpeedChanged)
 
 public:
     explicit MainModel(QObject *parent = nullptr);
 
     QuantityObject *engineSpeed() const;
+    QuantityObject *vehicleSpeed() const;
 
 public slots:
     void setEngineSpeed(const Quantity &rpm);
+    void setVehicleSpeed(const Quantity &kph);
 
 signals:
-    void engineSpeedChanged();
+    void engineSpeedChanged(); 
+    void vehicleSpeedChanged();
 
 private:
     QuantityObject *m_engineSpeed;
+    QuantityObject *m_vehicleSpeed;
 };

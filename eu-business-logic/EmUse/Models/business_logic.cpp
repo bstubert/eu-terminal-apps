@@ -28,6 +28,8 @@ MainModel *BusinessLogic::mainModel()
         m_mainModel = new MainModel{this};
         connect(m_machine->engine(), &EngineTwin::engineSpeed,
                 m_mainModel, &MainModel::setEngineSpeed);
+        connect(m_machine->engine(), &EngineTwin::vehicleSpeed,
+                m_mainModel, &MainModel::setVehicleSpeed);
     }
     return m_mainModel;
 }

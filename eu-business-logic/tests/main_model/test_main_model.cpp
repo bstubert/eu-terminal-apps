@@ -15,6 +15,7 @@ private slots:
     void init();
     void cleanup();
     void testEngineSpeed();
+    void testVehicleSpeed();
 
 private:
     Machine *m_machine;
@@ -28,6 +29,8 @@ void TestMainModel::init()
     m_model = new MainModel{};
     connect(m_machine->engine(), &EngineTwin::engineSpeed,
             m_model, &MainModel::setEngineSpeed);
+    connect(m_machine->engine(), &EngineTwin::vehicleSpeed,
+            m_model, &MainModel::setVehicleSpeed);
 }
 
 void TestMainModel::cleanup()
@@ -42,6 +45,17 @@ void TestMainModel::testEngineSpeed()
     Quantity rpm{930.0, "rpm"};
     emit m_machine->engine()->engineSpeed(rpm);
     QCOMPARE(m_model->engineSpeed()->quantity(), rpm);
+    QCOMPARE(spy.count(), 1);
+}
+
+void TestMainModel::testVehicleSpeed()
+{
+    QSignalSpy spy{m_model, &MainModel::vehicleSpeedChanged};
+    Quantity xKph{7.2, "kph"};
+    emit m_machine->engine()->vehicleSpeed(xKph);
+    auto kph = m_model->vehicleSpeed()->quantity();
+    QCOMPARE(kph.value(), xKph.value());
+    QCOMPARE(kph.unit(), xKph.unit());
     QCOMPARE(spy.count(), 1);
 }
 
