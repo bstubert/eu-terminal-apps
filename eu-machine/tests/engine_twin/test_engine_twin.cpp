@@ -15,9 +15,10 @@ private slots:
     void init();
     void cleanup();
     void testEngineSpeed();
+    void testVehicleSpeed();
 
 signals:
-    void updatedEngineQuantities(const QList<Quantity> &quantityColl);
+    void newEngineQuantities(const QList<Quantity> &quantityColl);
 
 private:
     EngineTwin *m_engine;
@@ -26,7 +27,7 @@ private:
 void TestEngineTwin::init()
 {
     m_engine = new EngineTwin{};
-    connect(this, &TestEngineTwin::updatedEngineQuantities,
+    connect(this, &TestEngineTwin::newEngineQuantities,
             m_engine, &EngineTwin::updateQuantities);
 }
 
@@ -38,11 +39,21 @@ void TestEngineTwin::cleanup()
 void TestEngineTwin::testEngineSpeed()
 {
     QSignalSpy rpmSpy{m_engine, &EngineTwin::engineSpeed};
-    emit updatedEngineQuantities({Quantity{930.0, u"rpm"_qs}});
+    emit newEngineQuantities({Quantity{930.0, u"rpm"_qs}});
     QCOMPARE(rpmSpy.count(), 1);
     auto rpm = rpmSpy.first().first().value<Quantity>();
     QCOMPARE(rpm.value(), 930.0);
     QCOMPARE(rpm.unit(), u"rpm"_qs);
+}
+
+void TestEngineTwin::testVehicleSpeed()
+{
+    QSignalSpy spy{m_engine, &EngineTwin::vehicleSpeed};
+    emit newEngineQuantities({Quantity{6.5, u"kph"_qs}});
+    QCOMPARE(spy.count(), 1);
+    auto rpm = spy.first().first().value<Quantity>();
+    QCOMPARE(rpm.value(), 6.5);
+    QCOMPARE(rpm.unit(), u"kph"_qs);
 }
 
 QTEST_GUILESS_MAIN(TestEngineTwin)

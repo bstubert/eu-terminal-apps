@@ -28,4 +28,6 @@ signals:
      * the EngineTwin emits this signal with the engine speed in rpm.
      */
     void engineSpeed(const Quantity &rpm);
+
+    void vehicleSpeed(const Quantity &kph);
 };
