@@ -15,7 +15,8 @@ private slots:
     void init();
     void cleanup();
     void testEngineSpeed();
-    void testVehicleSpeed();
+    void testVehicleSpeedChanged();
+    void testVehicleSpeedUnchanged();
 
 private:
     Machine *m_machine;
@@ -42,21 +43,36 @@ void TestMainModel::cleanup()
 void TestMainModel::testEngineSpeed()
 {
     QSignalSpy spy{m_model, &MainModel::engineSpeedChanged};
-    Quantity rpm{930.0, "rpm"};
+    Quantity rpm{930.0, u"rpm"_qs};
     emit m_machine->engine()->engineSpeed(rpm);
     QCOMPARE(m_model->engineSpeed()->quantity(), rpm);
     QCOMPARE(spy.count(), 1);
 }
 
-void TestMainModel::testVehicleSpeed()
+void TestMainModel::testVehicleSpeedChanged()
 {
     QSignalSpy spy{m_model, &MainModel::vehicleSpeedChanged};
-    Quantity xKph{7.2, "kph"};
+    Quantity xKph{7.2, u"kph"_qs};
     emit m_machine->engine()->vehicleSpeed(xKph);
     auto kph = m_model->vehicleSpeed()->quantity();
     QCOMPARE(kph.value(), xKph.value());
     QCOMPARE(kph.unit(), xKph.unit());
     QCOMPARE(spy.count(), 1);
+}
+
+void TestMainModel::testVehicleSpeedUnchanged()
+{
+    QSignalSpy spy{m_model, &MainModel::vehicleSpeedChanged};
+    Quantity xKph{7.2, u"kph"_qs};
+    m_model->setVehicleSpeed(xKph);
+    spy.clear();
+
+    emit m_machine->engine()->vehicleSpeed(xKph);
+    auto kph = m_model->vehicleSpeed()->quantity();
+    QCOMPARE(kph.value(), xKph.value());
+    QCOMPARE(kph.unit(), xKph.unit());
+    QCOMPARE(spy.count(), 0);
+
 }
 
 QTEST_GUILESS_MAIN(TestMainModel)
