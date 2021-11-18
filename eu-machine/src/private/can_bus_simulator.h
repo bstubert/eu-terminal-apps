@@ -20,7 +20,9 @@ signals:
 
 private slots:
     void onEngineSpeedChanged(qreal value);
+    void onVehicleSpeedChanged(qreal value);
 
 private:
     QTimeLine m_rpmTimeLine;
+    QTimeLine m_kphTimeLine;
 };
