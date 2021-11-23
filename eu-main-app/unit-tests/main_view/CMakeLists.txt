@@ -11,21 +11,17 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 COMPONENTS QuickTest Qml REQUIRED)
+find_package(Qt6 COMPONENTS Quick QuickTest REQUIRED)
 
-qt_add_executable(${PROJECT_NAME}
+add_executable(${PROJECT_NAME}
     test_main_view.cpp
-    fake_main_model.cpp
-    ../../../eu-terminal-core/src/main_model.cpp
-    ../../../eu-terminal-core/src/quantity_object.cpp
-    ../../../eu-machine-comms/src/quantity.cpp
 )
 
-target_include_directories(${PROJECT_NAME}
-    PRIVATE
-        ../../../eu-terminal-core/src
-        ../../../eu-machine-comms/src
+qt_add_qml_module(${PROJECT_NAME}
+    URI EmUse.Tests.MainView
+    VERSION 0.1
+    QML_FILES tst_main_view.qml
 )
 
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt6::QuickTest Qt6::Qml)
+  PRIVATE Qt6::Quick Qt6::QuickTest)

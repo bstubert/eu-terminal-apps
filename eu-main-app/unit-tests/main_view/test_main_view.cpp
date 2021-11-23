@@ -1,33 +1,4 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
-#include <QObject>
-#include <QQmlContext>
-#include <QQmlEngine>
 #include <QtQuickTest>
-
-#include "fake_main_model.h"
-
-class TestMainView : public QObject
-{
-    Q_OBJECT
-
-    FakeMainModel m_mainModel;
-
-public:
-    TestMainView(QObject *parent = nullptr)
-        : QObject{parent}
-    {
-    }
-
-public slots:
-
-    // TODO: Is this function called before every QML test function? Or just before the first?
-    void qmlEngineAvailable(QQmlEngine *engine)
-    {
-        engine->rootContext()->setContextProperty(u"mainModel"_qs, &m_mainModel);
-    }
-};
-
-QUICK_TEST_MAIN_WITH_SETUP(MainView, TestMainView)
-
-#include "test_main_view.moc"
+QUICK_TEST_MAIN(TestMainView)
