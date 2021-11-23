@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
     std::shared_ptr<BusinessLogic> businessLogic{new BusinessLogic{machine}};
 
     QQmlApplicationEngine appEngine;
+    appEngine.rootContext()->setContextProperty("BusinessLogic", businessLogic.get());
     appEngine.load(u"qrc:/main.qml"_qs);
 
     return app.exec();

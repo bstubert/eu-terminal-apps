@@ -4,7 +4,6 @@
 #include "main_model.h"
 #include "machine.h"
 #include "business_logic.h"
-#include "business_logic_singleton.h"
 
 
 BusinessLogic::BusinessLogic(std::shared_ptr<Machine> machine,
@@ -12,8 +11,6 @@ BusinessLogic::BusinessLogic(std::shared_ptr<Machine> machine,
     : QObject(parent)
     , m_machine{machine}
 {
-    BusinessLogicSingleton::setInstance(this);
-
 }
 
 BusinessLogic::~BusinessLogic()

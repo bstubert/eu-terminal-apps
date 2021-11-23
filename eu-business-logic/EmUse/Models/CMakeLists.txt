@@ -24,7 +24,6 @@ qt6_add_qml_module(${PROJECT_NAME}
         main_model.cpp
         quantity_object.cpp
         business_logic.cpp
-        private/business_logic_singleton.cpp
 )
 
 add_library(EmUse::BusinessLogicModels ALIAS ${PROJECT_NAME})
