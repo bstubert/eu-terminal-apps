@@ -5,7 +5,12 @@ import QtTest
 
 TestCase
 {
-    name: "TestMainView"
+    name: "MainView"
+
+    MainView
+    {
+        id: mainView
+    }
 
     function test_engine_speed()
     {
