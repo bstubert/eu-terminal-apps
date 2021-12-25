@@ -6,10 +6,16 @@ Quantity::Quantity()
 {
 }
 
-Quantity::Quantity(qreal value, const QString &unit)
-    : m_value{value}
+Quantity::Quantity(Pgn pgn, qreal value, const QString &unit)
+    : m_pgn{pgn}
+    , m_value{value}
     , m_unit{unit}
 {
+}
+
+Quantity::Pgn Quantity::pgn() const
+{
+    return m_pgn;
 }
 
 qreal Quantity::value() const

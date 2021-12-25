@@ -43,7 +43,7 @@ void TestMainModel::cleanup()
 void TestMainModel::testEngineSpeed()
 {
     QSignalSpy spy{m_model, &MainModel::engineSpeedChanged};
-    Quantity rpm{930.0, u"rpm"_qs};
+    Quantity rpm{Quantity::Pgn::EEC1, 930.0, u"rpm"_qs};
     emit m_machine->engine()->engineSpeed(rpm);
     QCOMPARE(m_model->engineSpeed()->quantity(), rpm);
     QCOMPARE(spy.count(), 1);
@@ -52,7 +52,7 @@ void TestMainModel::testEngineSpeed()
 void TestMainModel::testVehicleSpeedChanged()
 {
     QSignalSpy spy{m_model, &MainModel::vehicleSpeedChanged};
-    Quantity xKph{7.2, u"kph"_qs};
+    Quantity xKph{Quantity::Pgn::CCVS1, 7.2, u"kph"_qs};
     emit m_machine->engine()->vehicleSpeed(xKph);
     auto kph = m_model->vehicleSpeed()->quantity();
     QCOMPARE(kph.value(), xKph.value());
@@ -63,7 +63,7 @@ void TestMainModel::testVehicleSpeedChanged()
 void TestMainModel::testVehicleSpeedUnchanged()
 {
     QSignalSpy spy{m_model, &MainModel::vehicleSpeedChanged};
-    Quantity xKph{7.2, u"kph"_qs};
+    Quantity xKph{Quantity::Pgn::CCVS1, 7.2, u"kph"_qs};
     m_model->setVehicleSpeed(xKph);
     spy.clear();
 
