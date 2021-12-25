@@ -15,6 +15,9 @@ find_package(Qt6 COMPONENTS Quick QuickTest REQUIRED)
 
 add_executable(${PROJECT_NAME}
     test_main_view.cpp
+    ../../../eu-business-logic/EmUse/Models/main_model.cpp
+    ../../../eu-business-logic/EmUse/Models/quantity_object.cpp
+    ../../../eu-machine/src/quantity.cpp
 )
 
 set_source_files_properties(
@@ -27,5 +30,10 @@ qt_add_qml_module(${PROJECT_NAME}
     QML_FILES tst_main_view.qml ../../src/MainView.qml
 )
 
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ../../../eu-business-logic/EmUse/Models
+    ../../../eu-machine/src
+)
+
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt6::Quick Qt6::QuickTest EmUse::BusinessLogicModels)
+  PRIVATE Qt6::Quick Qt6::QuickTest)
