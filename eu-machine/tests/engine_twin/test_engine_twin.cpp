@@ -39,7 +39,7 @@ void TestEngineTwin::cleanup()
 void TestEngineTwin::testEngineSpeed()
 {
     QSignalSpy rpmSpy{m_engine, &EngineTwin::engineSpeed};
-    emit newEngineQuantities({Quantity{Quantity::Pgn::EEC1, 930.0, u"rpm"_qs}});
+    emit newEngineQuantities({Quantity{930.0, u"rpm"_qs}});
     QCOMPARE(rpmSpy.count(), 1);
     auto rpm = rpmSpy.first().first().value<Quantity>();
     QCOMPARE(rpm.value(), 930.0);
@@ -49,7 +49,7 @@ void TestEngineTwin::testEngineSpeed()
 void TestEngineTwin::testVehicleSpeed()
 {
     QSignalSpy spy{m_engine, &EngineTwin::vehicleSpeed};
-    emit newEngineQuantities({Quantity{Quantity::Pgn::CCVS1, 6.5, u"kph"_qs}});
+    emit newEngineQuantities({Quantity{6.5, u"kph"_qs}});
     QCOMPARE(spy.count(), 1);
     auto rpm = spy.first().first().value<Quantity>();
     QCOMPARE(rpm.value(), 6.5);

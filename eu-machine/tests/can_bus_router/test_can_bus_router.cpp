@@ -42,28 +42,18 @@ void TestCanBusRouter::cleanup()
 void TestCanBusRouter::testForwardingEngineFrames_data()
 {
     QTest::addColumn<QList<QCanBusFrame>>("incomingFrames");
-    QTest::addColumn<Quantity::Pgn>("pgn");
     QTest::addColumn<qreal>("value");
     QTest::addColumn<QString>("unit");
 
-    QTest::newRow("1 in / 1 out (930 rpm)")
-            << QList<QCanBusFrame>{eec1_930}
-            << Quantity::Pgn::EEC1 << 930.0 << u"rpm"_qs;
-    QTest::newRow("1 in / 1 out (1017 rpm)")
-            << QList<QCanBusFrame>{eec1_1017}
-            << Quantity::Pgn::EEC1 << 1017.0 << u"rpm"_qs;
-    QTest::newRow("2 in / 1 out (930 rpm)")
-            << QList<QCanBusFrame>{ic1, eec1_930}
-            << Quantity::Pgn::EEC1 << 930.0 << u"rpm"_qs;
-    QTest::newRow("1 in / 1 out (6.5 kph)")
-            << QList<QCanBusFrame>{ccvs1_6_5}
-            << Quantity::Pgn::CCVS1 << 6.5 << u"kph"_qs;
+    QTest::newRow("1 in / 1 out (930 rpm)") << QList<QCanBusFrame>{eec1_930} << 930.0 << u"rpm"_qs;
+    QTest::newRow("1 in / 1 out (1017 rpm)") << QList<QCanBusFrame>{eec1_1017} << 1017.0 << u"rpm"_qs;
+    QTest::newRow("2 in / 1 out (930 rpm)") << QList<QCanBusFrame>{ic1, eec1_930} << 930.0 << u"rpm"_qs;
+    QTest::newRow("1 in / 1 out (6.5 kph)") << QList<QCanBusFrame>{ccvs1_6_5} << 6.5 << u"kph"_qs;
 }
 
 void TestCanBusRouter::testForwardingEngineFrames()
 {
     QFETCH(QList<QCanBusFrame>, incomingFrames);
-    QFETCH(Quantity::Pgn, pgn);
     QFETCH(qreal, value);
     QFETCH(QString, unit);
 
@@ -75,7 +65,6 @@ void TestCanBusRouter::testForwardingEngineFrames()
     auto quantity = quantityColl.first();
     QCOMPARE(quantity.unit(), unit);
     QCOMPARE(quantity.value(), value);
-    QCOMPARE(quantity.pgn(), pgn);
 }
 
 QTEST_GUILESS_MAIN(TestCanBusRouter)

@@ -39,14 +39,14 @@ void CanBusRouter::onFramesReceived()
             {
                 auto payload = frame.payload();
                 auto rpm = qFromLittleEndian<quint16>(payload.data() + 3) / 8.0;
-                quantityColl.append(Quantity{Quantity::Pgn::EEC1, rpm, u"rpm"_qs});
+                quantityColl.append(Quantity{rpm, u"rpm"_qs});
                 break;
             }
             case 0x18FEF100:
             {
                 auto payload = frame.payload();
                 auto kph = qFromLittleEndian<quint16>(payload.data() + 1) / 256.0;
-                quantityColl.append(Quantity{Quantity::Pgn::CCVS1, kph, u"kph"_qs});
+                quantityColl.append(Quantity{kph, u"kph"_qs});
                 break;
             }
             default:

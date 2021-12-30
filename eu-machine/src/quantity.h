@@ -8,26 +8,13 @@
 class Quantity
 {
 public:
-    enum class Pgn : quint16
-    {
-        EEC1 = 0xF004U,
-        CCVS1 = 0xFEF1U
-    };
-
-//    enum class SourceAddress : quint8
-//    {
-//        Engine = 0x00U
-//    };
-
     Quantity();
-    Quantity(Pgn pgn, qreal value, const QString &unit);
+    Quantity(qreal value, const QString &unit);
 
-    Pgn pgn() const;
     qreal value() const;
     QString unit() const;
 
 private:
-    Pgn m_pgn;
     qreal m_value{0.0};
     QString m_unit;
 };
