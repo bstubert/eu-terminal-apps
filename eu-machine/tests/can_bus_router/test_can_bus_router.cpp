@@ -75,7 +75,6 @@ void TestCanBusRouter::testForwardingEngineFrames()
     auto quantity = quantityColl.first();
     QCOMPARE(quantity.id(), id);
     QCOMPARE(quantity.value(), value);
-    QCOMPARE(quantity.unit(), unit);
 }
 
 QTEST_GUILESS_MAIN(TestCanBusRouter)

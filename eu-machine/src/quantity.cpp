@@ -6,10 +6,9 @@ Quantity::Quantity()
 {
 }
 
-Quantity::Quantity(Id id, qreal value, const QString &unit)
+Quantity::Quantity(Id id, qreal value)
     : m_id{id}
     , m_value{value}
-    , m_unit{unit}
 {
 }
 
@@ -21,9 +20,4 @@ Quantity::Id Quantity::id() const
 qreal Quantity::value() const
 {
     return m_value;
-}
-
-QString Quantity::unit() const
-{
-    return m_unit;
 }
