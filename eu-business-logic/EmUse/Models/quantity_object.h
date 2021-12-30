@@ -15,7 +15,7 @@ class QuantityObject : public QObject
     QML_ELEMENT
 
     Q_PROPERTY(qreal value READ value NOTIFY quantityChanged)
-    Q_PROPERTY(QString unit READ unit NOTIFY quantityChanged)
+    Q_PROPERTY(QString unit READ unit CONSTANT)
 
 public:
     explicit QuantityObject(QObject *parent = nullptr);
