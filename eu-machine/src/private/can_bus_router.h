@@ -2,11 +2,14 @@
 
 #pragma once
 
-#include <QCanBusDevice>
+#include <memory.h>
+
 #include <QList>
 #include <QObject>
 
 #include "quantity.h"
+
+class QCanBusDevice;
 
 class CanBusRouter : public QObject
 {
@@ -18,9 +21,7 @@ public:
 signals:
     void newEngineQuantities(const QList<Quantity> &quantityColl);
 
-private slots:
-    void onFramesReceived();
-
 private:
-    QCanBusDevice *m_canBus;
+    class Impl;
+    std::unique_ptr<Impl> m_impl;
 };

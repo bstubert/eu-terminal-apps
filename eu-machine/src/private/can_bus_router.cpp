@@ -1,5 +1,6 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
+#include <QCanBusDevice>
 #include <QtEndian>
 
 #include "can_bus_router.h"
@@ -12,21 +13,37 @@ namespace
     }
 }
 
-CanBusRouter::CanBusRouter(QCanBusDevice *canBus, QObject *parent)
-    : QObject{parent}
-    , m_canBus{canBus}
+class CanBusRouter::Impl : public QObject
+{
+    Q_OBJECT
+
+public:
+    Impl(QCanBusDevice *canBus);
+    virtual ~Impl();
+
+    QCanBusDevice *m_canBus;
+
+public slots:
+    void onFramesReceived();
+
+signals:
+    void newEngineQuantities(const QList<Quantity> &quantityColl);
+};
+
+CanBusRouter::Impl::Impl(QCanBusDevice *canBus)
+    : m_canBus{canBus}
 {
     connect(m_canBus, &QCanBusDevice::framesReceived,
-            this, &CanBusRouter::onFramesReceived);
+            this, &Impl::onFramesReceived);
     m_canBus->connectDevice();
 }
 
-CanBusRouter::~CanBusRouter()
+CanBusRouter::Impl::~Impl()
 {
     m_canBus->disconnectDevice();
 }
 
-void CanBusRouter::onFramesReceived()
+void CanBusRouter::Impl::onFramesReceived()
 {
     QList<Quantity> quantityColl;
     for (const auto &frame : m_canBus->readAllFrames())
@@ -57,3 +74,18 @@ void CanBusRouter::onFramesReceived()
     }
     emit newEngineQuantities(quantityColl);
 }
+
+
+CanBusRouter::CanBusRouter(QCanBusDevice *canBus, QObject *parent)
+    : QObject{parent}
+    , m_impl{new Impl{canBus}}
+{
+    connect(m_impl.get(), &Impl::newEngineQuantities,
+            this, &CanBusRouter::newEngineQuantities);
+}
+
+CanBusRouter::~CanBusRouter()
+{
+}
+
+#include "can_bus_router.moc"
