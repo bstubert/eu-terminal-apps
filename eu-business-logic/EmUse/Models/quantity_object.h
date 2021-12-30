@@ -2,12 +2,14 @@
 
 #pragma once
 
+#include <memory>
+
 #include <QObject>
 #include <QQmlEngine>
 #include <QString>
 #include <QtGlobal>
 
-#include "quantity.h"
+class Quantity;
 
 class QuantityObject : public QObject
 {
@@ -19,6 +21,7 @@ class QuantityObject : public QObject
 
 public:
     explicit QuantityObject(QObject *parent = nullptr);
+    virtual ~QuantityObject();
 
     const Quantity &quantity() const;
     void setQuantity(const Quantity &quantity);
@@ -31,5 +34,6 @@ signals:
     void quantityChanged();
 
 private:
-    Quantity m_quantity;
+    struct Impl;
+    std::unique_ptr<Impl> m_impl;
 };

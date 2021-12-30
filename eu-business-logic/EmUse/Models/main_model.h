@@ -6,6 +6,7 @@
 #include <QQmlEngine>
 #include <QtGlobal>
 
+#include "quantity.h"
 #include "quantity_object.h"
 
 class MainModel : public QObject
