@@ -18,6 +18,7 @@ add_library(${PROJECT_NAME} SHARED
     machine.cpp
     machine_creator.cpp
     quantity.cpp
+    quantity_object.cpp
     private/can_bus_router.cpp
     private/can_bus_simulator.cpp
     private/mock_can_bus_device.cpp

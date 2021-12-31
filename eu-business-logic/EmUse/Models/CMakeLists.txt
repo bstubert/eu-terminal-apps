@@ -22,7 +22,6 @@ qt6_add_qml_module(${PROJECT_NAME}
     PLUGIN_TARGET QmlModuleBusinessLogicModels
     SOURCES
         main_model.cpp
-        quantity_object.cpp
         business_logic.cpp
 )
 

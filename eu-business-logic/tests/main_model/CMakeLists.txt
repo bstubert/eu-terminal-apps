@@ -16,7 +16,6 @@ find_package(Qt6 COMPONENTS Core Test Qml REQUIRED)
 add_executable(${PROJECT_NAME}
     test_main_model.cpp
     ../../EmUse/Models/main_model.cpp
-    ../../EmUse/Models/quantity_object.cpp
 )
 
 add_test(
