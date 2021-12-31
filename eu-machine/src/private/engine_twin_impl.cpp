@@ -10,13 +10,25 @@ void EngineTwinImpl::updateQuantities(const QList<Quantity> &quantityColl)
     {
         if (quantity.id() == Quantity::Id::EngineSpeed)
         {
-            auto rpm = qFromLittleEndian<quint16>(quantity.rawBytes()) / 8.0;
-            m_engineSpeed->setValue(rpm);
+            updateEngineSpeed(quantity);
         }
         else if (quantity.id() == Quantity::Id::VehicleSpeed)
         {
-            auto kph = qFromLittleEndian<quint16>(quantity.rawBytes()) / 256.0;
-            m_vehicleSpeed->setValue(kph);
+            updateVehicleSpeed(quantity);
         }
     }
+}
+
+// TODO: Store the update functions in a map and call them depending on Quantity::Id.
+//     The update functions could be generated.
+void EngineTwinImpl::updateEngineSpeed(const Quantity &quantity)
+{
+    auto rpm = qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.125;
+    m_engineSpeed->setValue(rpm);
+}
+
+void EngineTwinImpl::updateVehicleSpeed(const Quantity &quantity)
+{
+    auto kph = qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.00390625;
+    m_vehicleSpeed->setValue(kph);
 }
