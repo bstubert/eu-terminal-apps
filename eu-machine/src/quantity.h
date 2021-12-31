@@ -22,21 +22,19 @@ public:
     Q_ENUM(Id);
 
     Quantity();
-    Quantity(Id id, qreal value, const QByteArray &rawBytes = {});
+    Quantity(Id id, const QByteArray &rawBytes);
 
     Id id() const;
-    qreal value() const;
     QByteArray rawBytes() const;
 
 private:
     Id m_id{Id::Undefined};
-    qreal m_value{0.0};
     QByteArray m_rawBytes;
 };
 
 inline bool operator==(const Quantity &q1, const Quantity &q2)
 {
-    return q1.id() == q2.id() && qFuzzyCompare(q1.value(), q2.value());
+    return q1.id() == q2.id() && q1.rawBytes() == q2.rawBytes();
 }
 
 inline bool operator!=(const Quantity &q1, const Quantity &q2)

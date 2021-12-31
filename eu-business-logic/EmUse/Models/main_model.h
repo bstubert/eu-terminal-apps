@@ -6,7 +6,6 @@
 #include <QQmlEngine>
 #include <QtGlobal>
 
-#include "quantity.h"
 #include "quantity_object.h"
 
 class MainModel : public QObject
@@ -14,8 +13,8 @@ class MainModel : public QObject
     Q_OBJECT
     QML_ELEMENT
 
-    Q_PROPERTY(QuantityObject *engineSpeed READ engineSpeed NOTIFY engineSpeedChanged)
-    Q_PROPERTY(QuantityObject *vehicleSpeed READ vehicleSpeed NOTIFY vehicleSpeedChanged)
+    Q_PROPERTY(QuantityObject *engineSpeed READ engineSpeed CONSTANT)
+    Q_PROPERTY(QuantityObject *vehicleSpeed READ vehicleSpeed CONSTANT)
 
 public:
     explicit MainModel(QObject *parent = nullptr);
@@ -23,15 +22,10 @@ public:
     QuantityObject *engineSpeed() const;
     QuantityObject *vehicleSpeed() const;
 
-public slots:
-    void setEngineSpeed(const Quantity &rpm);
-    void setVehicleSpeed(const Quantity &kph);
-
-signals:
-    void engineSpeedChanged(); 
-    void vehicleSpeedChanged();
+    void setEngineSpeed(std::shared_ptr<QuantityObject> rpm);
+    void setVehicleSpeed(std::shared_ptr<QuantityObject> kph);
 
 private:
-    QuantityObject *m_engineSpeed;
-    QuantityObject *m_vehicleSpeed;
+    std::shared_ptr<QuantityObject> m_engineSpeed;
+    std::shared_ptr<QuantityObject> m_vehicleSpeed;
 };

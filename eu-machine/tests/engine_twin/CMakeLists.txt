@@ -17,6 +17,7 @@ add_executable(${PROJECT_NAME}
     test_engine_twin.cpp
     ../../src/engine_twin.cpp
     ../../src/quantity.cpp
+    ../../src/quantity_object.cpp
 )
 
 add_test(

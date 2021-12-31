@@ -4,35 +4,25 @@
 
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
-    , m_engineSpeed{new QuantityObject{parent}}
-    , m_vehicleSpeed{new QuantityObject{parent}}
 {
-}
-
-void MainModel::setEngineSpeed(const Quantity &rpm)
-{
-    if (m_engineSpeed->quantity() != rpm)
-    {
-        m_engineSpeed->setQuantity(rpm);
-        emit engineSpeedChanged();
-    }
-}
-
-void MainModel::setVehicleSpeed(const Quantity &kph)
-{
-    if (m_vehicleSpeed->quantity() != kph)
-    {
-        m_vehicleSpeed->setQuantity(kph);
-        emit vehicleSpeedChanged();
-    }
 }
 
 QuantityObject *MainModel::engineSpeed() const
 {
-    return m_engineSpeed;
+    return m_engineSpeed.get();
 }
 
 QuantityObject *MainModel::vehicleSpeed() const
 {
-    return m_vehicleSpeed;
+    return m_vehicleSpeed.get();
+}
+
+void MainModel::setEngineSpeed(std::shared_ptr<QuantityObject> rpm)
+{
+    m_engineSpeed = rpm;
+}
+
+void MainModel::setVehicleSpeed(std::shared_ptr<QuantityObject> kph)
+{
+    m_vehicleSpeed = kph;
 }

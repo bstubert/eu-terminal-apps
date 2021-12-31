@@ -14,22 +14,20 @@ class QuantityObject : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(qreal value READ value NOTIFY quantityChanged)
+    Q_PROPERTY(qreal value READ value NOTIFY valueChanged)
     Q_PROPERTY(QString unit READ unit CONSTANT)
 
 public:
-    explicit QuantityObject(QObject *parent = nullptr);
+    explicit QuantityObject(const QString &unit, QObject *parent = nullptr);
     virtual ~QuantityObject();
 
-    const Quantity &quantity() const;
-    void setQuantity(const Quantity &quantity);
-
     qreal value() const;
+    void setValue(qreal value);
 
     QString unit() const;
 
 signals:
-    void quantityChanged();
+    void valueChanged();
 
 private:
     struct Impl;

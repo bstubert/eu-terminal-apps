@@ -71,15 +71,13 @@ void CanBusRouter::Impl::onFramesReceived()
             case Pgn::EEC1:
             {
                 auto payload = frame.payload();
-                auto rpm = qFromLittleEndian<quint16>(payload.data() + 3) / 8.0;
-                quantityColl.append(Quantity{Quantity::Id::EngineSpeed, rpm, payload.mid(3, 2)});
+                quantityColl.append(Quantity{Quantity::Id::EngineSpeed, payload.mid(3, 2)});
                 break;
             }
             case Pgn::CCVS1:
             {
                 auto payload = frame.payload();
-                auto kph = qFromLittleEndian<quint16>(payload.data() + 1) / 256.0;
-                quantityColl.append(Quantity{Quantity::Id::VehicleSpeed, kph, payload.mid(1, 2)});
+                quantityColl.append(Quantity{Quantity::Id::VehicleSpeed, payload.mid(1, 2)});
                 break;
             }
             default:

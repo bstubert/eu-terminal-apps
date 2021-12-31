@@ -8,6 +8,7 @@
 #include <QObject>
 
 #include "quantity.h"
+#include "quantity_object.h"
 
 class EngineTwin : public QObject
 {
@@ -17,21 +18,15 @@ public:
     explicit EngineTwin();
     virtual ~EngineTwin();
 
+    std::shared_ptr<QuantityObject> engineSpeed() const;
+    std::shared_ptr<QuantityObject> vehicleSpeed() const;
+
 public slots:
     /*!
      * Receives a \a quantityColl from the Engine ECU via the CanBusRouter. Emits a signal for each
      * changed quantity (e.g., engineSpeed()).
      */
     void updateQuantities(const QList<Quantity> &quantityColl);
-
-signals:
-    /*!
-     * When the terminal receives a message with a changed engine speed from the engine ECU,
-     * the EngineTwin emits this signal with the engine speed in rpm.
-     */
-    void engineSpeed(const Quantity &rpm);
-
-    void vehicleSpeed(const Quantity &kph);
 
 private:
     struct Impl;

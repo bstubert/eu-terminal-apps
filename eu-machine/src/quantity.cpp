@@ -6,9 +6,8 @@ Quantity::Quantity()
 {
 }
 
-Quantity::Quantity(Id id, qreal value, const QByteArray &rawBytes)
+Quantity::Quantity(Id id, const QByteArray &rawBytes)
     : m_id{id}
-    , m_value{value}
     , m_rawBytes{rawBytes}
 {
 }
@@ -16,11 +15,6 @@ Quantity::Quantity(Id id, qreal value, const QByteArray &rawBytes)
 Quantity::Id Quantity::id() const
 {
     return m_id;
-}
-
-qreal Quantity::value() const
-{
-    return m_value;
 }
 
 QByteArray Quantity::rawBytes() const

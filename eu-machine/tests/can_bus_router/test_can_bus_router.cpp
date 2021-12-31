@@ -16,8 +16,6 @@ private slots:
     void cleanup();
     void testDecodeQuantitiesFromFrames_data();
     void testDecodeQuantitiesFromFrames();
-    void testForwardingEngineFrames_data();
-    void testForwardingEngineFrames();
 
 private:
     const QCanBusFrame eec1_930{0xCF00400, QByteArray::fromHex("001122101d556677")};
@@ -51,20 +49,20 @@ void TestCanBusRouter::testDecodeQuantitiesFromFrames_data()
     QTest::newRow("1 quantity from 1 frame: 930 rpm")
             << QList<QCanBusFrame>{eec1_930}
             << QList<Quantity>{
-                   Quantity{Quantity::Id::EngineSpeed, 0.0, QByteArray::fromHex("101d")},
+                   Quantity{Quantity::Id::EngineSpeed, QByteArray::fromHex("101d")},
                };
 
     QTest::newRow("1 quantity from 1 frame: 6.5 kph")
             << QList<QCanBusFrame>{ccvs1_6_5}
             << QList<Quantity>{
-                   Quantity{Quantity::Id::VehicleSpeed, 0.0, QByteArray::fromHex("8006")},
+                   Quantity{Quantity::Id::VehicleSpeed, QByteArray::fromHex("8006")},
                };
 
     QTest::newRow("2 quantities from 2 frames: 930 rpm, 6.5 kph")
             << QList<QCanBusFrame>{eec1_930, ccvs1_6_5}
             << QList<Quantity>{
-                   Quantity{Quantity::Id::EngineSpeed, 0.0, QByteArray::fromHex("101d")},
-                   Quantity{Quantity::Id::VehicleSpeed, 0.0, QByteArray::fromHex("8006")},
+                   Quantity{Quantity::Id::EngineSpeed, QByteArray::fromHex("101d")},
+                   Quantity{Quantity::Id::VehicleSpeed, QByteArray::fromHex("8006")},
                };
 
     QTest::newRow("0 quantities from 1 frame: Unknown PGN")
@@ -91,49 +89,6 @@ void TestCanBusRouter::testDecodeQuantitiesFromFrames()
         QCOMPARE(quantityColl[i].id(), xQuantities[i].id());
         QCOMPARE(quantityColl[i].rawBytes(), xQuantities[i].rawBytes());
     }
-}
-
-void TestCanBusRouter::testForwardingEngineFrames_data()
-{
-    QTest::addColumn<QList<QCanBusFrame>>("incomingFrames");
-    QTest::addColumn<Quantity::Id>("id");
-    QTest::addColumn<qreal>("value");
-    QTest::addColumn<QByteArray>("rawBytes");
-
-    QTest::newRow("1 in / 1 out (930 rpm)")
-            << QList<QCanBusFrame>{eec1_930}
-            << Quantity::Id::EngineSpeed << 930.0
-            << QByteArray::fromHex("101d");
-    QTest::newRow("1 in / 1 out (1017 rpm)")
-            << QList<QCanBusFrame>{eec1_1017}
-            << Quantity::Id::EngineSpeed << 1017.0
-            << QByteArray::fromHex("c81f");
-    QTest::newRow("2 in / 1 out (930 rpm)")
-            << QList<QCanBusFrame>{ic1, eec1_930}
-            << Quantity::Id::EngineSpeed << 930.0
-            << QByteArray::fromHex("101d");
-    QTest::newRow("1 in / 1 out (6.5 kph)")
-            << QList<QCanBusFrame>{ccvs1_6_5}
-            << Quantity::Id::VehicleSpeed << 6.5
-            << QByteArray::fromHex("8006");
-}
-
-void TestCanBusRouter::testForwardingEngineFrames()
-{
-    QFETCH(QList<QCanBusFrame>, incomingFrames);
-    QFETCH(Quantity::Id, id);
-    QFETCH(qreal, value);
-    QFETCH(QByteArray, rawBytes);
-
-    QSignalSpy spy{m_router, &CanBusRouter::newEngineQuantities};
-    m_canBus->appendIncomingFrames(incomingFrames);
-    QCOMPARE(spy.count(), 1);
-    auto quantityColl = spy.first().first().value<QList<Quantity>>();
-    QCOMPARE(quantityColl.count(), 1);
-    auto quantity = quantityColl.first();
-    QCOMPARE(quantity.id(), id);
-    QCOMPARE(quantity.value(), value);
-    QCOMPARE(quantity.rawBytes(), rawBytes);
 }
 
 QTEST_GUILESS_MAIN(TestCanBusRouter)
