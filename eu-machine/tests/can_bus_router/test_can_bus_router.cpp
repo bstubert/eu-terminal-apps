@@ -44,20 +44,19 @@ void TestCanBusRouter::testForwardingEngineFrames_data()
     QTest::addColumn<QList<QCanBusFrame>>("incomingFrames");
     QTest::addColumn<Quantity::Id>("id");
     QTest::addColumn<qreal>("value");
-    QTest::addColumn<QString>("unit");
 
     QTest::newRow("1 in / 1 out (930 rpm)")
             << QList<QCanBusFrame>{eec1_930}
-            << Quantity::Id::EngineSpeed << 930.0 << u"rpm"_qs;
+            << Quantity::Id::EngineSpeed << 930.0;
     QTest::newRow("1 in / 1 out (1017 rpm)")
             << QList<QCanBusFrame>{eec1_1017}
-            << Quantity::Id::EngineSpeed << 1017.0 << u"rpm"_qs;
+            << Quantity::Id::EngineSpeed << 1017.0;
     QTest::newRow("2 in / 1 out (930 rpm)")
             << QList<QCanBusFrame>{ic1, eec1_930}
-            << Quantity::Id::EngineSpeed << 930.0 << u"rpm"_qs;
+            << Quantity::Id::EngineSpeed << 930.0;
     QTest::newRow("1 in / 1 out (6.5 kph)")
             << QList<QCanBusFrame>{ccvs1_6_5}
-            << Quantity::Id::VehicleSpeed << 6.5 << u"kph"_qs;
+            << Quantity::Id::VehicleSpeed << 6.5;
 }
 
 void TestCanBusRouter::testForwardingEngineFrames()
@@ -65,7 +64,6 @@ void TestCanBusRouter::testForwardingEngineFrames()
     QFETCH(QList<QCanBusFrame>, incomingFrames);
     QFETCH(Quantity::Id, id);
     QFETCH(qreal, value);
-    QFETCH(QString, unit);
 
     QSignalSpy spy{m_router, &CanBusRouter::newEngineQuantities};
     m_canBus->appendIncomingFrames(incomingFrames);
