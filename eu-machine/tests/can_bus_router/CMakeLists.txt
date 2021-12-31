@@ -17,7 +17,7 @@ add_executable(${PROJECT_NAME}
     test_can_bus_router.cpp
     ../../src/private/mock_can_bus_device.cpp
     ../../src/private/can_bus_router.cpp
-    ../../src/quantity.cpp
+    ../../src/private/quantity.cpp
 )
 
 add_test(

@@ -8,8 +8,6 @@
 #include <QString>
 #include <QtGlobal>
 
-class Quantity;
-
 class QuantityObject : public QObject
 {
     Q_OBJECT

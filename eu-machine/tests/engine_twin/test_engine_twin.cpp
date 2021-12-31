@@ -5,7 +5,7 @@
 #include <QtTest>
 
 #include "private/engine_twin_impl.h"
-#include "quantity.h"
+#include "private/quantity.h"
 
 class TestEngineTwin : public QObject
 {

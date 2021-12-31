@@ -6,8 +6,6 @@
 #include <QObject>
 #include <QTimeLine>
 
-class Quantity;
-
 class CanBusSimulator : public QObject
 {
     Q_OBJECT
