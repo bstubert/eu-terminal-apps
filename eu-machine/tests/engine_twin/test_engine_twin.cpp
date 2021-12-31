@@ -4,7 +4,7 @@
 #include <QSignalSpy>
 #include <QtTest>
 
-#include "engine_twin.h"
+#include "private/engine_twin_impl.h"
 #include "quantity.h"
 
 class TestEngineTwin : public QObject
@@ -21,12 +21,12 @@ signals:
     void newEngineQuantities(const QList<Quantity> &quantityColl);
 
 private:
-    EngineTwin *m_engine;
+    EngineTwinImpl *m_engine;
 };
 
 void TestEngineTwin::init()
 {
-    m_engine = new EngineTwin{};
+    m_engine = new EngineTwinImpl{};
 }
 
 void TestEngineTwin::cleanup()
@@ -38,14 +38,14 @@ void TestEngineTwin::testEngineSpeed()
 {
     Quantity q{Quantity::Id::EngineSpeed, QByteArray::fromHex("101d")};
     m_engine->updateQuantities({q});
-    QCOMPARE(m_engine->engineSpeed()->value(), 930.0);
+    QCOMPARE(m_engine->m_engineSpeed->value(), 930.0);
 }
 
 void TestEngineTwin::testVehicleSpeed()
 {
     Quantity q{Quantity::Id::VehicleSpeed, QByteArray::fromHex("8006")};
     m_engine->updateQuantities({q});
-    QCOMPARE(m_engine->vehicleSpeed()->value(), 6.5);
+    QCOMPARE(m_engine->m_vehicleSpeed->value(), 6.5);
 }
 
 QTEST_GUILESS_MAIN(TestEngineTwin)
