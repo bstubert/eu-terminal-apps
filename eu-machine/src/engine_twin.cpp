@@ -2,7 +2,13 @@
 
 #include "engine_twin.h"
 
+struct EngineTwin::Impl
+{
+
+};
+
 EngineTwin::EngineTwin()
+    : m_impl{new Impl{}}
 {
 }
 

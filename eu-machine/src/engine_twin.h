@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include <QList>
 #include <QObject>
 
@@ -30,4 +32,8 @@ signals:
     void engineSpeed(const Quantity &rpm);
 
     void vehicleSpeed(const Quantity &kph);
+
+private:
+    struct Impl;
+    std::unique_ptr<Impl> m_impl;
 };
