@@ -25,6 +25,7 @@ private:
     const QCanBusFrame ccvs1_6_5{0x18FEF100, QByteArray::fromHex("0080063344556677")};
     const QCanBusFrame ic1{0x18FEF601, QByteArray::fromHex("0011223344556677")};
     const QCanBusFrame unknownPgn{0x18552200, QByteArray::fromHex("0011223344556677")};
+    const QCanBusFrame unknownSourceAddress{0x18FEF177, QByteArray::fromHex("0080063344556677")};
 
     MockCanBusDevice *m_canBus;
     CanBusRouter *m_router;
@@ -68,6 +69,10 @@ void TestCanBusRouter::testDecodeQuantitiesFromFrames_data()
 
     QTest::newRow("0 quantities from 1 frame: Unknown PGN")
             << QList<QCanBusFrame>{unknownPgn}
+            << QList<Quantity>{};
+
+    QTest::newRow("0 quantities from 1 frame: Unknown source address")
+            << QList<QCanBusFrame>{unknownSourceAddress}
             << QList<Quantity>{};
 }
 

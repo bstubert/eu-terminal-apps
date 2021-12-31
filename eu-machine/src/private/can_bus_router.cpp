@@ -5,21 +5,27 @@
 
 #include "can_bus_router.h"
 
-namespace
-{
-    bool isFrameFromEngine(int frameId)
-    {
-        return (frameId & 0xff) == 0x00;
-    }
-}
-
 class CanBusRouter::Impl : public QObject
 {
     Q_OBJECT
 
 public:
+    enum class SourceAddress : quint32
+    {
+        Engine = 0x00U,
+    };
+
+    enum class Pgn : quint32
+    {
+        EEC1 = 0xf004U,
+        CCVS1 = 0xfef1U,
+    };
+
     Impl(QCanBusDevice *canBus);
     virtual ~Impl();
+
+    SourceAddress sourceAddress(quint32 frameId) const;
+    Pgn pgn(quint32 frameId) const;
 
     QCanBusDevice *m_canBus;
 
@@ -43,23 +49,33 @@ CanBusRouter::Impl::~Impl()
     m_canBus->disconnectDevice();
 }
 
+CanBusRouter::Impl::SourceAddress CanBusRouter::Impl::sourceAddress(quint32 frameId) const
+{
+    return SourceAddress(frameId & 0xff);
+}
+
+CanBusRouter::Impl::Pgn CanBusRouter::Impl::pgn(quint32 frameId) const
+{
+    return Pgn((frameId & 0x00ffff00) >> 8);
+}
+
 void CanBusRouter::Impl::onFramesReceived()
 {
     QList<Quantity> quantityColl;
     for (const auto &frame : m_canBus->readAllFrames())
     {
-        if (isFrameFromEngine(frame.frameId()))
+        if (sourceAddress(frame.frameId()) == Impl::SourceAddress::Engine)
         {
-            switch (frame.frameId())
+            switch (pgn(frame.frameId()))
             {
-            case 0xCF00400:
+            case Pgn::EEC1:
             {
                 auto payload = frame.payload();
                 auto rpm = qFromLittleEndian<quint16>(payload.data() + 3) / 8.0;
                 quantityColl.append(Quantity{Quantity::Id::EngineSpeed, rpm, payload.mid(3, 2)});
                 break;
             }
-            case 0x18FEF100:
+            case Pgn::CCVS1:
             {
                 auto payload = frame.payload();
                 auto kph = qFromLittleEndian<quint16>(payload.data() + 1) / 256.0;
@@ -69,7 +85,6 @@ void CanBusRouter::Impl::onFramesReceived()
             default:
                 break;
             }
-
         }
     }
     emit newEngineQuantities(quantityColl);
