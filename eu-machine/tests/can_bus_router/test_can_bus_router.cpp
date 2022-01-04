@@ -20,6 +20,7 @@ private slots:
 private:
     const QCanBusFrame eec1_930{0xCF00400, QByteArray::fromHex("001122101d556677")};
     const QCanBusFrame eec1_1017{0xCF00400, QByteArray::fromHex("001122c81f556677")};
+    const QCanBusFrame eec1_89_930{0xCF00400, QByteArray::fromHex("0011d6101d556677")};
     const QCanBusFrame ccvs1_6_5{0x18FEF100, QByteArray::fromHex("0080063344556677")};
     const QCanBusFrame ic1{0x18FEF601, QByteArray::fromHex("0011223344556677")};
     const QCanBusFrame unknownPgn{0x18552200, QByteArray::fromHex("0011223344556677")};
@@ -46,24 +47,6 @@ void TestCanBusRouter::testDecodeQuantitiesFromFrames_data()
     QTest::addColumn<QList<QCanBusFrame>>("incomingFrames");
     QTest::addColumn<QList<Quantity>>("xQuantities");
 
-    QTest::newRow("1 quantity from 1 frame: 930 rpm")
-            << QList<QCanBusFrame>{eec1_930}
-            << QList<Quantity>{
-                   Quantity{Quantity::Id::EngineSpeed, QByteArray::fromHex("101d")},
-               };
-
-    QTest::newRow("1 quantity from 1 frame: 6.5 kph")
-            << QList<QCanBusFrame>{ccvs1_6_5}
-            << QList<Quantity>{
-                   Quantity{Quantity::Id::VehicleSpeed, QByteArray::fromHex("8006")},
-               };
-
-    QTest::newRow("2 quantities from 2 frames: 930 rpm, 6.5 kph")
-            << QList<QCanBusFrame>{eec1_930, ccvs1_6_5}
-            << QList<Quantity>{
-                   Quantity{Quantity::Id::EngineSpeed, QByteArray::fromHex("101d")},
-                   Quantity{Quantity::Id::VehicleSpeed, QByteArray::fromHex("8006")},
-               };
 
     QTest::newRow("0 quantities from 1 frame: Unknown PGN")
             << QList<QCanBusFrame>{unknownPgn}
@@ -72,6 +55,27 @@ void TestCanBusRouter::testDecodeQuantitiesFromFrames_data()
     QTest::newRow("0 quantities from 1 frame: Unknown source address")
             << QList<QCanBusFrame>{unknownSourceAddress}
             << QList<Quantity>{};
+
+    QTest::newRow("1 quantity from 1 frame: 6.5 kph")
+            << QList<QCanBusFrame>{ccvs1_6_5}
+            << QList<Quantity>{
+                   Quantity{Quantity::Id::VehicleSpeed, QByteArray::fromHex("8006")},
+               };
+
+    QTest::newRow("2 quantities from 1 frame: 89%, 930 rpm")
+            << QList<QCanBusFrame>{eec1_89_930}
+            << QList<Quantity>{
+                   Quantity{Quantity::Id::ActualEnginePercentTorque, QByteArray::fromHex("d6")},
+                   Quantity{Quantity::Id::EngineSpeed, QByteArray::fromHex("101d")},
+               };
+
+    QTest::newRow("3 quantities from 2 frames: 89%, 930 rpm, 6.5 kph")
+            << QList<QCanBusFrame>{eec1_89_930, ccvs1_6_5}
+            << QList<Quantity>{
+                   Quantity{Quantity::Id::ActualEnginePercentTorque, QByteArray::fromHex("d6")},
+                   Quantity{Quantity::Id::EngineSpeed, QByteArray::fromHex("101d")},
+                   Quantity{Quantity::Id::VehicleSpeed, QByteArray::fromHex("8006")},
+               };
 }
 
 void TestCanBusRouter::testDecodeQuantitiesFromFrames()

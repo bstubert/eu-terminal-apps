@@ -65,7 +65,10 @@ QList<Quantity> CanBusRouter::Impl::decodeFrameFromEngine(const QCanBusFrame &fr
     switch (pgn(frame.frameId()))
     {
     case Pgn::EEC1:
-        return {Quantity{Quantity::Id::EngineSpeed, frame.payload().mid(3, 2)}};
+        return {
+            Quantity{Quantity::Id::ActualEnginePercentTorque, frame.payload().mid(2, 1)},
+            Quantity{Quantity::Id::EngineSpeed, frame.payload().mid(3, 2)}
+        };
     case Pgn::CCVS1:
         return {Quantity{Quantity::Id::VehicleSpeed, frame.payload().mid(1, 2)}};
     default:

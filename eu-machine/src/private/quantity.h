@@ -18,6 +18,7 @@ public:
         Undefined = 0U,
         VehicleSpeed = 84U,
         EngineSpeed = 190U,
+        ActualEnginePercentTorque = 513U,
     };
     Q_ENUM(Id);
 
