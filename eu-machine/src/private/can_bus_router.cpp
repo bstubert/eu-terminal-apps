@@ -26,6 +26,7 @@ public:
 
     SourceAddress sourceAddress(quint32 frameId) const;
     Pgn pgn(quint32 frameId) const;
+    QList<Quantity> decodeFrameFromEngine(const QCanBusFrame &frame);
 
     QCanBusDevice *m_canBus;
 
@@ -59,6 +60,19 @@ CanBusRouter::Impl::Pgn CanBusRouter::Impl::pgn(quint32 frameId) const
     return Pgn((frameId & 0x00ffff00) >> 8);
 }
 
+QList<Quantity> CanBusRouter::Impl::decodeFrameFromEngine(const QCanBusFrame &frame)
+{
+    switch (pgn(frame.frameId()))
+    {
+    case Pgn::EEC1:
+        return {Quantity{Quantity::Id::EngineSpeed, frame.payload().mid(3, 2)}};
+    case Pgn::CCVS1:
+        return {Quantity{Quantity::Id::VehicleSpeed, frame.payload().mid(1, 2)}};
+    default:
+        return {};
+    }
+}
+
 void CanBusRouter::Impl::onFramesReceived()
 {
     QList<Quantity> quantityColl;
@@ -66,23 +80,7 @@ void CanBusRouter::Impl::onFramesReceived()
     {
         if (sourceAddress(frame.frameId()) == Impl::SourceAddress::Engine)
         {
-            switch (pgn(frame.frameId()))
-            {
-            case Pgn::EEC1:
-            {
-                auto payload = frame.payload();
-                quantityColl.append(Quantity{Quantity::Id::EngineSpeed, payload.mid(3, 2)});
-                break;
-            }
-            case Pgn::CCVS1:
-            {
-                auto payload = frame.payload();
-                quantityColl.append(Quantity{Quantity::Id::VehicleSpeed, payload.mid(1, 2)});
-                break;
-            }
-            default:
-                break;
-            }
+            quantityColl.append(decodeFrameFromEngine(frame));
         }
     }
     emit newEngineQuantities(quantityColl);
