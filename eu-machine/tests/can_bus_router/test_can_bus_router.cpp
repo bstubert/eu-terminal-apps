@@ -25,6 +25,7 @@ private:
     const QCanBusFrame ic1{0x18FEF601, QByteArray::fromHex("0011223344556677")};
     const QCanBusFrame unknownPgn{0x18552200, QByteArray::fromHex("0011223344556677")};
     const QCanBusFrame unknownSourceAddress{0x18FEF177, QByteArray::fromHex("0080063344556677")};
+    const QCanBusFrame asc2_3_12{0x18d20000, QByteArray::fromHex("18c3223344556677")};
 
     MockCanBusDevice *m_canBus;
     CanBusRouter *m_router;
@@ -76,6 +77,15 @@ void TestCanBusRouter::testDecodeQuantitiesFromFrames_data()
                    Quantity{Quantity::Id::EngineSpeed, QByteArray::fromHex("101d")},
                    Quantity{Quantity::Id::VehicleSpeed, QByteArray::fromHex("8006")},
                };
+
+    QTest::newRow("3 bit groups from 1 frame: 2, 1, 3, 12")
+            << QList<QCanBusFrame>{asc2_3_12}
+            << QList<Quantity>{
+                   Quantity{Quantity::Id::KneelingRequestLeftSide, QByteArray::fromHex("02")},
+                   Quantity{Quantity::Id::KneelingRequestRightSide, QByteArray::fromHex("01")},
+                   Quantity{Quantity::Id::NominalLevelRequestFrontAxle, QByteArray::fromHex("03")},
+                   Quantity{Quantity::Id::NominalLevelRequestRearAxle, QByteArray::fromHex("0c")},
+               };
 }
 
 void TestCanBusRouter::testDecodeQuantitiesFromFrames()
@@ -91,7 +101,7 @@ void TestCanBusRouter::testDecodeQuantitiesFromFrames()
     for (int i = 0; i < quantityColl.count(); ++i)
     {
         QCOMPARE(quantityColl[i].id(), xQuantities[i].id());
-        QCOMPARE(quantityColl[i].rawBytes(), xQuantities[i].rawBytes());
+        QCOMPARE(quantityColl[i].rawBytes().toHex(), xQuantities[i].rawBytes().toHex());
     }
 }
 

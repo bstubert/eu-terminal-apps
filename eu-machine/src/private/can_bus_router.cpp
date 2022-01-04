@@ -17,6 +17,7 @@ public:
 
     enum class Pgn : quint32
     {
+        ASC2 = 0xd200U,
         EEC1 = 0xf004U,
         CCVS1 = 0xfef1U,
     };
@@ -27,6 +28,7 @@ public:
     SourceAddress sourceAddress(quint32 frameId) const;
     Pgn pgn(quint32 frameId) const;
     QList<Quantity> decodeFrameFromEngine(const QCanBusFrame &frame);
+    QByteArray fromBits(char byte, quint8 mask, int shift) const;
 
     QCanBusDevice *m_canBus;
 
@@ -64,6 +66,17 @@ QList<Quantity> CanBusRouter::Impl::decodeFrameFromEngine(const QCanBusFrame &fr
 {
     switch (pgn(frame.frameId()))
     {
+    case Pgn::ASC2:
+        return {
+            Quantity{Quantity::Id::KneelingRequestLeftSide,
+                     fromBits(frame.payload().at(0), 0x0cU, 2)},
+            Quantity{Quantity::Id::KneelingRequestRightSide,
+                     fromBits(frame.payload().at(0), 0x30U, 4)},
+            Quantity{Quantity::Id::NominalLevelRequestFrontAxle,
+                     fromBits(frame.payload().at(1), 0x0fU, 0)},
+            Quantity{Quantity::Id::NominalLevelRequestRearAxle,
+                     fromBits(frame.payload().at(1), 0xf0U, 4)},
+        };
     case Pgn::EEC1:
         return {
             Quantity{Quantity::Id::ActualEnginePercentTorque, frame.payload().mid(2, 1)},
@@ -74,6 +87,13 @@ QList<Quantity> CanBusRouter::Impl::decodeFrameFromEngine(const QCanBusFrame &fr
     default:
         return {};
     }
+}
+
+QByteArray CanBusRouter::Impl::fromBits(char byte, quint8 mask, int shift) const
+{
+    // NOTE: Shifting signed char 0xc0 four bits to the right yields 0xfc, because highest
+    // bit is filled up with 1. Hence, casting char to quint8 is necessary.
+    return QByteArray(1, (quint8(byte) & mask) >> shift);
 }
 
 void CanBusRouter::Impl::onFramesReceived()

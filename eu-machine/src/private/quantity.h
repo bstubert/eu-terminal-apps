@@ -19,6 +19,10 @@ public:
         VehicleSpeed = 84U,
         EngineSpeed = 190U,
         ActualEnginePercentTorque = 513U,
+        NominalLevelRequestRearAxle = 1750U,
+        NominalLevelRequestFrontAxle = 1751U,
+        KneelingRequestRightSide = 1748U,
+        KneelingRequestLeftSide = 1749U,
     };
     Q_ENUM(Id);
 
