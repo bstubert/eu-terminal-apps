@@ -24,6 +24,9 @@ public:
     std::shared_ptr<QuantityObject> engineSpeed() const;
     std::shared_ptr<QuantityObject> vehicleSpeed() const;
 
+signals:
+    void errorMessage(const QString &message);
+
 private:
     class Impl;
     std::unique_ptr<Impl> m_impl;

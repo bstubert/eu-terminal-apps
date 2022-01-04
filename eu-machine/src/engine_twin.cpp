@@ -17,6 +17,9 @@ class EngineTwin::Impl : public QObject
 public slots:
     void updateQuantities(const QList<Quantity> &quantityColl);
 
+signals:
+    void errorMessage(const QString &message);
+
 public:
     void updateEngineSpeed(const Quantity &quantity);
     void updateVehicleSpeed(const Quantity &quantity);
@@ -40,9 +43,10 @@ void EngineTwin::Impl::updateQuantities(const QList<Quantity> &quantityColl)
             updateVehicleSpeed(quantity);
             break;
         default:
-            // TODO: How can we test this case?
-            qWarning() << "EngineTwin: Received unknown quantity ID: "
-                       << static_cast<quint32>(quantity.id());
+            auto message = QString{"EngineTwin received unknown quantity ID: %1"}
+                    .arg(static_cast<quint32>(quantity.id()), 0, 16);
+            emit errorMessage(message);
+            qWarning() << message;
             break;
         }
     }
@@ -65,9 +69,10 @@ void EngineTwin::Impl::updateVehicleSpeed(const Quantity &quantity)
 EngineTwin::EngineTwin(CanBusRouter *router)
     : m_impl{new Impl{}}
 {
-    QObject::connect(router, &CanBusRouter::newEngineQuantities,
-                     m_impl.get(), &Impl::updateQuantities);
-
+    connect(router, &CanBusRouter::newEngineQuantities,
+            m_impl.get(), &Impl::updateQuantities);
+    connect(m_impl.get(), &Impl::errorMessage,
+            this, &EngineTwin::errorMessage);
 }
 
 EngineTwin::~EngineTwin()
