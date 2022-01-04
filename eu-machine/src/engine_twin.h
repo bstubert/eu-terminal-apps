@@ -4,13 +4,11 @@
 
 #include <memory>
 
-#include <QList>
 #include <QObject>
 
 #include "quantity_object.h"
 
 class CanBusRouter;
-class EngineTwinImpl;
 
 class EngineTwin : public QObject
 {
@@ -27,5 +25,6 @@ public:
     std::shared_ptr<QuantityObject> vehicleSpeed() const;
 
 private:
-    EngineTwinImpl *m_impl;
+    class Impl;
+    std::unique_ptr<Impl> m_impl;
 };

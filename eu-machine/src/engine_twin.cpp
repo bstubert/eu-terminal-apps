@@ -9,7 +9,7 @@
 #include "private/quantity.h"
 #include "quantity_object.h"
 
-class EngineTwinImpl : public QObject
+class EngineTwin::Impl : public QObject
 {
     Q_OBJECT
 
@@ -26,7 +26,7 @@ public:
     std::shared_ptr<QuantityObject> m_vehicleSpeed{new QuantityObject{u"kph"_qs}};
 };
 
-void EngineTwinImpl::updateQuantities(const QList<Quantity> &quantityColl)
+void EngineTwin::Impl::updateQuantities(const QList<Quantity> &quantityColl)
 {
     for (const auto &quantity : quantityColl)
     {
@@ -43,13 +43,13 @@ void EngineTwinImpl::updateQuantities(const QList<Quantity> &quantityColl)
 
 // TODO: Store the update functions in a map and call them depending on Quantity::Id.
 //     The update functions could be generated.
-void EngineTwinImpl::updateEngineSpeed(const Quantity &quantity)
+void EngineTwin::Impl::updateEngineSpeed(const Quantity &quantity)
 {
     auto rpm = qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.125;
     m_engineSpeed->setValue(rpm);
 }
 
-void EngineTwinImpl::updateVehicleSpeed(const Quantity &quantity)
+void EngineTwin::Impl::updateVehicleSpeed(const Quantity &quantity)
 {
     auto kph = qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.00390625;
     m_vehicleSpeed->setValue(kph);
@@ -58,10 +58,10 @@ void EngineTwinImpl::updateVehicleSpeed(const Quantity &quantity)
 
 
 EngineTwin::EngineTwin(CanBusRouter *router)
-    : m_impl{new EngineTwinImpl{}}
+    : m_impl{new Impl{}}
 {
     QObject::connect(router, &CanBusRouter::newEngineQuantities,
-                     m_impl, &EngineTwinImpl::updateQuantities);
+                     m_impl.get(), &Impl::updateQuantities);
 
 }
 
