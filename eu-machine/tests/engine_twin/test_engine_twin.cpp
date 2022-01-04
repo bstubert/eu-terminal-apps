@@ -18,6 +18,8 @@ private slots:
     void testEngineSpeed();
     void testVehicleSpeed();
     void testUnknownQuantity();
+    void testQuantityWithOffset_data();
+    void testQuantityWithOffset();
 
 signals:
     void newEngineQuantities(const QList<Quantity> &quantityColl);
@@ -63,6 +65,26 @@ void TestEngineTwin::testUnknownQuantity()
     Quantity q{Quantity::Id(0xffffffff), QByteArray::fromHex("1234")};
     emit m_router->newEngineQuantities({q});
     QCOMPARE(spy.count(), 1);
+}
+
+void TestEngineTwin::testQuantityWithOffset_data()
+{
+    QTest::addColumn<QByteArray>("hexValue");
+    QTest::addColumn<qreal>("value");
+
+    QTest::addRow("value = +89") << QByteArray::fromHex("d6") << 89.0;
+    QTest::addRow("value = -14") << QByteArray::fromHex("6f") << -14.0;
+    QTest::addRow("value = 0") << QByteArray::fromHex("7d") << 0.0;
+}
+
+void TestEngineTwin::testQuantityWithOffset()
+{
+    QFETCH(QByteArray, hexValue);
+    QFETCH(qreal, value);
+
+    Quantity q{Quantity::Id::ActualEnginePercentTorque, hexValue};
+    emit m_router->newEngineQuantities({q});
+    QCOMPARE(m_engine->actualEnginePercentTorque()->value(), value);
 }
 
 QTEST_GUILESS_MAIN(TestEngineTwin)

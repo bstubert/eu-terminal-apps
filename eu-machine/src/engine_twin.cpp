@@ -21,13 +21,11 @@ signals:
     void errorMessage(const QString &message);
 
 public:
-    void updateEngineSpeed(const Quantity &quantity);
-    void updateVehicleSpeed(const Quantity &quantity);
-
     // TODO: Pass minimum and maximum to QuantityObject, which also takes care of
     //     bounding the value into the admissible range.
     std::shared_ptr<QuantityObject> m_engineSpeed{new QuantityObject{u"rpm"_qs}};
     std::shared_ptr<QuantityObject> m_vehicleSpeed{new QuantityObject{u"kph"_qs}};
+    std::shared_ptr<QuantityObject> m_actualEnginePercentTorque{new QuantityObject{u"%"_qs}};
 };
 
 void EngineTwin::Impl::updateQuantities(const QList<Quantity> &quantityColl)
@@ -37,10 +35,16 @@ void EngineTwin::Impl::updateQuantities(const QList<Quantity> &quantityColl)
         switch (quantity.id())
         {
         case Quantity::Id::EngineSpeed:
-            updateEngineSpeed(quantity);
+            m_engineSpeed->setValue(
+                        qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.125);
             break;
         case Quantity::Id::VehicleSpeed:
-            updateVehicleSpeed(quantity);
+            m_vehicleSpeed->setValue(
+                        qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.00390625);
+            break;
+        case Quantity::Id::ActualEnginePercentTorque:
+            m_actualEnginePercentTorque->setValue(
+                        qFromLittleEndian<quint8>(quantity.rawBytes()) * 1.0 - 125.0);
             break;
         default:
             auto message = QString{"EngineTwin received unknown quantity ID: %1"}
@@ -50,18 +54,6 @@ void EngineTwin::Impl::updateQuantities(const QList<Quantity> &quantityColl)
             break;
         }
     }
-}
-
-void EngineTwin::Impl::updateEngineSpeed(const Quantity &quantity)
-{
-    auto rpm = qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.125;
-    m_engineSpeed->setValue(rpm);
-}
-
-void EngineTwin::Impl::updateVehicleSpeed(const Quantity &quantity)
-{
-    auto kph = qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.00390625;
-    m_vehicleSpeed->setValue(kph);
 }
 
 
@@ -87,6 +79,11 @@ std::shared_ptr<QuantityObject> EngineTwin::engineSpeed() const
 std::shared_ptr<QuantityObject> EngineTwin::vehicleSpeed() const
 {
     return m_impl->m_vehicleSpeed;
+}
+
+std::shared_ptr<QuantityObject> EngineTwin::actualEnginePercentTorque() const
+{
+    return m_impl->m_actualEnginePercentTorque;
 }
 
 #include "engine_twin.moc"

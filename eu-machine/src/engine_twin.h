@@ -23,6 +23,7 @@ public:
 
     std::shared_ptr<QuantityObject> engineSpeed() const;
     std::shared_ptr<QuantityObject> vehicleSpeed() const;
+    std::shared_ptr<QuantityObject> actualEnginePercentTorque() const;
 
 signals:
     void errorMessage(const QString &message);
