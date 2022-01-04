@@ -35,16 +35,16 @@ void EngineTwin::Impl::updateQuantities(const QList<Quantity> &quantityColl)
         switch (quantity.id())
         {
         case Quantity::Id::EngineSpeed:
-            m_engineSpeed->setValue(
-                        qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.125);
+            m_engineSpeed->
+                    setValue(qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.125);
             break;
         case Quantity::Id::VehicleSpeed:
-            m_vehicleSpeed->setValue(
-                        qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.00390625);
+            m_vehicleSpeed->
+                    setValue(qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.00390625);
             break;
         case Quantity::Id::ActualEnginePercentTorque:
-            m_actualEnginePercentTorque->setValue(
-                        qFromLittleEndian<quint8>(quantity.rawBytes()) * 1.0 - 125.0);
+            m_actualEnginePercentTorque->
+                    setValue(qFromLittleEndian<quint8>(quantity.rawBytes()) * 1.0 - 125.0);
             break;
         default:
             auto message = QString{"EngineTwin received unknown quantity ID: %1"}
