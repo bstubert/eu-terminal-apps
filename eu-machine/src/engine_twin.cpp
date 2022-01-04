@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include <QtDebug>
 #include <QtEndian>
 
 #include "engine_twin.h"
@@ -30,19 +31,23 @@ void EngineTwin::Impl::updateQuantities(const QList<Quantity> &quantityColl)
 {
     for (const auto &quantity : quantityColl)
     {
-        if (quantity.id() == Quantity::Id::EngineSpeed)
+        switch (quantity.id())
         {
+        case Quantity::Id::EngineSpeed:
             updateEngineSpeed(quantity);
-        }
-        else if (quantity.id() == Quantity::Id::VehicleSpeed)
-        {
+            break;
+        case Quantity::Id::VehicleSpeed:
             updateVehicleSpeed(quantity);
+            break;
+        default:
+            // TODO: How can we test this case?
+            qWarning() << "EngineTwin: Received unknown quantity ID: "
+                       << static_cast<quint32>(quantity.id());
+            break;
         }
     }
 }
 
-// TODO: Store the update functions in a map and call them depending on Quantity::Id.
-//     The update functions could be generated.
 void EngineTwin::Impl::updateEngineSpeed(const Quantity &quantity)
 {
     auto rpm = qFromLittleEndian<quint16>(quantity.rawBytes()) * 0.125;
