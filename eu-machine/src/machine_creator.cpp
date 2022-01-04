@@ -3,7 +3,6 @@
 #include <QtGlobal>
 
 #include "machine_creator.h"
-#include "private/mock_machine.h"
 #include "private/simulator_machine.h"
 
 Machine *createMachine(Machine::Configuration configuration)
@@ -12,8 +11,6 @@ Machine *createMachine(Machine::Configuration configuration)
     {
     case Machine::Configuration::Simulator:
         return new SimulatorMachine{};
-    case Machine::Configuration::Mock:
-        return new MockMachine{};
     default:
         Q_ASSERT_X(false, __PRETTY_FUNCTION__, "Unsupported machine configuration!");
         return nullptr;

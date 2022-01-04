@@ -1,13 +1,11 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
 #include "engine_twin.h"
-#include "private/engine_twin_impl.h"
 #include "private/mock_machine.h"
 
 struct MockMachine::Impl
 {
-    EngineTwinImpl m_engineImpl;
-    EngineTwin m_engine{&m_engineImpl};
+    EngineTwin m_engine{nullptr};
 };
 
 MockMachine::MockMachine()

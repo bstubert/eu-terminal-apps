@@ -11,7 +11,6 @@ public:
     {
         Product,
         Simulator,
-        Mock
     };
 
     virtual ~Machine();

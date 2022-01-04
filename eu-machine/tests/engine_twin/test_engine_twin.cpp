@@ -4,7 +4,8 @@
 #include <QSignalSpy>
 #include <QtTest>
 
-#include "private/engine_twin_impl.h"
+#include "engine_twin.h"
+#include "private/can_bus_router.h"
 #include "private/quantity.h"
 
 class TestEngineTwin : public QObject
@@ -21,31 +22,34 @@ signals:
     void newEngineQuantities(const QList<Quantity> &quantityColl);
 
 private:
-    EngineTwinImpl *m_engine;
+    CanBusRouter *m_router;
+    EngineTwin *m_engine;
 };
 
 void TestEngineTwin::init()
 {
-    m_engine = new EngineTwinImpl{};
+    m_router = new CanBusRouter{nullptr};
+    m_engine = new EngineTwin{m_router};
 }
 
 void TestEngineTwin::cleanup()
 {
     delete m_engine;
+    delete m_router;
 }
 
 void TestEngineTwin::testEngineSpeed()
 {
     Quantity q{Quantity::Id::EngineSpeed, QByteArray::fromHex("101d")};
-    m_engine->updateQuantities({q});
-    QCOMPARE(m_engine->m_engineSpeed->value(), 930.0);
+    emit m_router->newEngineQuantities({q});
+    QCOMPARE(m_engine->engineSpeed()->value(), 930.0);
 }
 
 void TestEngineTwin::testVehicleSpeed()
 {
     Quantity q{Quantity::Id::VehicleSpeed, QByteArray::fromHex("8006")};
-    m_engine->updateQuantities({q});
-    QCOMPARE(m_engine->m_vehicleSpeed->value(), 6.5);
+    emit m_router->newEngineQuantities({q});
+    QCOMPARE(m_engine->vehicleSpeed()->value(), 6.5);
 }
 
 QTEST_GUILESS_MAIN(TestEngineTwin)

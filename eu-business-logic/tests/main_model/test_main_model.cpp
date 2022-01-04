@@ -26,8 +26,8 @@ private:
 
 void TestMainModel::init()
 {
-    m_machine = createMachine(Machine::Configuration::Mock);
-    m_model = new MainModel{};
+//    m_machine = createMachine(Machine::Configuration::Mock);
+//    m_model = new MainModel{};
 //    connect(m_machine->engine(), &EngineTwin::engineSpeedChanged,
 //            m_model, &MainModel::setEngineSpeed);
 //    connect(m_machine->engine(), &EngineTwin::vehicleSpeedChanged,
@@ -36,8 +36,8 @@ void TestMainModel::init()
 
 void TestMainModel::cleanup()
 {
-    delete m_model;
-    delete m_machine;
+//    delete m_model;
+//    delete m_machine;
 }
 
 void TestMainModel::testEngineSpeed()
