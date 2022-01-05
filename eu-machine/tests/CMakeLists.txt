@@ -8,4 +8,5 @@ include(CTest)
 add_subdirectory(can_bus_device)
 add_subdirectory(can_bus_router)
 add_subdirectory(engine_twin)
+add_subdirectory(quantity_object)
 
