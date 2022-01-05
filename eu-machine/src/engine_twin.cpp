@@ -21,11 +21,10 @@ signals:
     void errorMessage(const QString &message);
 
 public:
-    // TODO: Pass minimum and maximum to QuantityObject, which also takes care of
-    //     bounding the value into the admissible range.
-    std::shared_ptr<QuantityObject> m_engineSpeed{new QuantityObject{u"rpm"_qs}};
-    std::shared_ptr<QuantityObject> m_vehicleSpeed{new QuantityObject{u"kph"_qs}};
-    std::shared_ptr<QuantityObject> m_actualEnginePercentTorque{new QuantityObject{u"%"_qs}};
+    std::shared_ptr<QuantityObject> m_engineSpeed{new QuantityObject{u"rpm"_qs, 0.0, 3000.0}};
+    std::shared_ptr<QuantityObject> m_vehicleSpeed{new QuantityObject{u"kph"_qs, 0.0, 50.0}};
+    std::shared_ptr<QuantityObject> m_actualEnginePercentTorque{
+        new QuantityObject{u"%"_qs, 0.0, 100.0}};
 };
 
 void EngineTwin::Impl::updateQuantities(const QList<Quantity> &quantityColl)

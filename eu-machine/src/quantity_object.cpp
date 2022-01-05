@@ -9,13 +9,17 @@ struct QuantityObject::Impl
 {
     qreal m_value{0.0};
     QString m_unit;
+    qreal m_minimum{0.0};
+    qreal m_maximum{0.0};
 };
 
-QuantityObject::QuantityObject(const QString &unit, QObject *parent)
+QuantityObject::QuantityObject(const QString &unit, qreal minimum, qreal maximum, QObject *parent)
     : QObject(parent)
     , m_impl{new Impl{}}
 {
     m_impl->m_unit = unit;
+    m_impl->m_minimum = minimum;
+    m_impl->m_maximum = maximum;
 }
 
 QuantityObject::~QuantityObject()
@@ -24,7 +28,7 @@ QuantityObject::~QuantityObject()
 
 qreal QuantityObject::value() const
 {
-    return m_impl->m_value;
+    return qBound(m_impl->m_minimum, m_impl->m_value, m_impl->m_maximum);
 }
 
 void QuantityObject::setValue(qreal value)
