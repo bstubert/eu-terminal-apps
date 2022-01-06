@@ -21,7 +21,7 @@ Rectangle
                 id: rpmText
                 width: 160
                 height: 56
-                text: Number(model.engineSpeed.value).toFixed(0)
+                text: model.engineSpeed.valueString
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment: Text.AlignVCenter
                 color: "#ebf5ee" // mint cream

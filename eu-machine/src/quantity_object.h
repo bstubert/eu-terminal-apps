@@ -17,7 +17,8 @@ class QuantityObject : public QObject
     Q_PROPERTY(QString unit READ unit CONSTANT)
 
 public:
-    explicit QuantityObject(const QString &unit, qreal minimum, qreal maximum,
+    explicit QuantityObject(qreal minimum, qreal maximum,
+                            int precision, const QString &unit,
                             QObject *parent = nullptr);
     virtual ~QuantityObject();
 
