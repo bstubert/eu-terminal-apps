@@ -24,7 +24,7 @@ public:
     std::shared_ptr<QuantityObject> m_engineSpeed{new QuantityObject{0.0, 3000.0, 0, u"rpm"_qs}};
     std::shared_ptr<QuantityObject> m_vehicleSpeed{new QuantityObject{0.0, 50.0, 1, u"kph"_qs}};
     std::shared_ptr<QuantityObject> m_actualEnginePercentTorque{
-        new QuantityObject{0.0, 100.0, 0, u"%"_qs}};
+        new QuantityObject{-125.0, 125.0, 0, u"%"_qs}};
 };
 
 void EngineTwin::Impl::updateQuantities(const QList<Quantity> &quantityColl)
