@@ -31,6 +31,11 @@ qreal QuantityObject::value() const
     return qBound(m_impl->m_minimum, m_impl->m_value, m_impl->m_maximum);
 }
 
+QString QuantityObject::valueString() const
+{
+    return QString::number(value(), 'f', 1);
+}
+
 void QuantityObject::setValue(qreal value)
 {
     m_impl->m_value = value;

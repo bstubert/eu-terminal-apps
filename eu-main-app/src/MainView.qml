@@ -47,7 +47,7 @@ Rectangle
                 id: kphText
                 width: 160
                 height: 56
-                text: Number(model.vehicleSpeed.value).toFixed(1)
+                text: model.vehicleSpeed.valueString
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment: Text.AlignVCenter
                 color: "#ebf5ee" // mint cream

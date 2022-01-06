@@ -13,6 +13,7 @@ class QuantityObject : public QObject
     Q_OBJECT
 
     Q_PROPERTY(qreal value READ value NOTIFY valueChanged)
+    Q_PROPERTY(QString valueString READ valueString NOTIFY valueChanged)
     Q_PROPERTY(QString unit READ unit CONSTANT)
 
 public:
@@ -21,6 +22,7 @@ public:
     virtual ~QuantityObject();
 
     qreal value() const;
+    QString valueString() const;
     void setValue(qreal value);
 
     QString unit() const;

@@ -11,11 +11,13 @@ class TestQuantityObject : public QObject
     Q_OBJECT
 
 private slots:
-    void testVehicleSpeed_data();
-    void testVehicleSpeed();
+    void testValueBoundaries_data();
+    void testValueBoundaries();
+    void testQuantityAsString_data();
+    void testQuantityAsString();
 };
 
-void TestQuantityObject::testVehicleSpeed_data()
+void TestQuantityObject::testValueBoundaries_data()
 {
     QTest::addColumn<qreal>("value");
     QTest::addColumn<qreal>("xValue");
@@ -26,7 +28,7 @@ void TestQuantityObject::testVehicleSpeed_data()
     QTest::addRow("too small") << -3.8 << 0.0 << u"kph"_qs;
 }
 
-void TestQuantityObject::testVehicleSpeed()
+void TestQuantityObject::testValueBoundaries()
 {
     QFETCH(qreal, value);
     QFETCH(qreal, xValue);
@@ -35,6 +37,31 @@ void TestQuantityObject::testVehicleSpeed()
     QuantityObject rpm{u"kph"_qs, 0.0, 50.0};
     rpm.setValue(value);
     QCOMPARE(rpm.value(), xValue);
+    QCOMPARE(rpm.unit(), xUnit);
+}
+
+void TestQuantityObject::testQuantityAsString_data()
+{
+    QTest::addColumn<qreal>("value");
+    QTest::addColumn<QString>("xValueString");
+    QTest::addColumn<QString>("xUnit");
+
+    QTest::addRow("round down") << 13.23 << u"13.2"_qs << u"kph"_qs;
+    QTest::addRow("round up") << 23.48 << u"23.5"_qs << u"kph"_qs;
+    QTest::addRow(".0 shown") << 5.02 << u"5.0"_qs << u"kph"_qs;
+    QTest::addRow("too small") << -3.8 << u"0.0"_qs << u"kph"_qs;
+    QTest::addRow("too big") << 55.14 << u"50.0"_qs << u"kph"_qs;
+}
+
+void TestQuantityObject::testQuantityAsString()
+{
+    QFETCH(qreal, value);
+    QFETCH(QString, xValueString);
+    QFETCH(QString, xUnit);
+
+    QuantityObject rpm{u"kph"_qs, 0.0, 50.0};
+    rpm.setValue(value);
+    QCOMPARE(rpm.valueString(), xValueString);
     QCOMPARE(rpm.unit(), xUnit);
 }
 
