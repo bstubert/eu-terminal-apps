@@ -1,6 +1,6 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
-#include <QMap>
+#include <QLocale>
 #include <QString>
 
 #include "quantity_object.h"
@@ -37,7 +37,9 @@ qreal QuantityObject::value() const
 
 QString QuantityObject::valueString() const
 {
-    return QString::number(value(), 'f', m_impl->m_precision);
+    QLocale l;
+    l.setNumberOptions(QLocale::OmitGroupSeparator);
+    return l.toString(value(), 'f', m_impl->m_precision);
 }
 
 void QuantityObject::setValue(qreal value)
