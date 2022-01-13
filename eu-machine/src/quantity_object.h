@@ -15,6 +15,7 @@ class QuantityObject : public QObject
     Q_PROPERTY(qreal value READ value NOTIFY valueChanged)
     Q_PROPERTY(QString valueString READ valueString NOTIFY valueChanged)
     Q_PROPERTY(QString unit READ unit CONSTANT)
+    Q_PROPERTY(qreal minimum READ minimum CONSTANT)
 
 public:
     explicit QuantityObject(qreal minimum, qreal maximum,
@@ -28,10 +29,13 @@ public:
 
     QString unit() const;
 
+    qreal minimum() const;
+
 signals:
     void valueChanged();
 
 private:
     struct Impl;
     std::unique_ptr<Impl> m_impl;
+    qreal m_minimum;
 };

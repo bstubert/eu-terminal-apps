@@ -52,3 +52,8 @@ QString QuantityObject::unit() const
 {
     return m_impl->m_unit;
 }
+
+qreal QuantityObject::minimum() const
+{
+    return m_impl->m_minimum;
+}
