@@ -9,12 +9,14 @@ class TestCanBusDevice : public QObject
     Q_OBJECT
 
 private slots:
-    void testCreateCanBusDevice();
+    void testConnectionSucceeded();
 };
 
-void TestCanBusDevice::testCreateCanBusDevice()
+void TestCanBusDevice::testConnectionSucceeded()
 {
-    MockCanBusDevice canBus;
+    MockCanBusDevice device;
+    QVERIFY(device.connectDevice());
+    QCOMPARE(device.state(), QCanBusDevice::ConnectedState);
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)

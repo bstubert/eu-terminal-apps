@@ -14,7 +14,8 @@ QString MockCanBusDevice::interpretErrorFrame(const QCanBusFrame &errorFrame)
 
 bool MockCanBusDevice::open()
 {
-    return false;
+    setState(QCanBusDevice::ConnectedState);
+    return true;
 }
 
 void MockCanBusDevice::close()
