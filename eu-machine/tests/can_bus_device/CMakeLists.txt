@@ -11,7 +11,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 COMPONENTS Test REQUIRED)
+find_package(Qt6 COMPONENTS Test SerialBus REQUIRED)
 
 add_executable(${PROJECT_NAME}
     test_can_bus_device.cpp
@@ -28,5 +28,5 @@ add_test(
 #)
 
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt6::Test)
+  PRIVATE Qt6::Test Qt6::SerialBus)
 
