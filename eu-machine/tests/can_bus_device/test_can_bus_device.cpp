@@ -2,6 +2,8 @@
 
 #include <QtTest>
 
+#include "mock_can_bus_device.h"
+
 class TestCanBusDevice : public QObject
 {
     Q_OBJECT
@@ -12,7 +14,7 @@ private slots:
 
 void TestCanBusDevice::testCreateCanBusDevice()
 {
-    QVERIFY(true);
+    MockCanBusDevice canBus;
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)

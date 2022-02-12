@@ -15,6 +15,7 @@ find_package(Qt6 COMPONENTS Test REQUIRED)
 
 add_executable(${PROJECT_NAME}
     test_can_bus_device.cpp
+    mock_can_bus_device.cpp
 )
 
 add_test(
