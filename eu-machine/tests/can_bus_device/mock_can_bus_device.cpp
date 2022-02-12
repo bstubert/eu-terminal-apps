@@ -26,4 +26,5 @@ bool MockCanBusDevice::open()
 
 void MockCanBusDevice::close()
 {
+    setState(QCanBusDevice::UnconnectedState);
 }

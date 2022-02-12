@@ -11,6 +11,8 @@ class TestCanBusDevice : public QObject
 private slots:
     void testConnectionSucceeded();
     void testConnectionFailed();
+
+    void testDisconnectWhenConnected();
 };
 
 void TestCanBusDevice::testConnectionSucceeded()
@@ -25,6 +27,14 @@ void TestCanBusDevice::testConnectionFailed()
     MockCanBusDevice device;
     device.setExpectedConnectionState(QCanBusDevice::UnconnectedState);
     QVERIFY(!device.connectDevice());
+    QCOMPARE(device.state(), QCanBusDevice::UnconnectedState);
+}
+
+void TestCanBusDevice::testDisconnectWhenConnected()
+{
+    MockCanBusDevice device;
+    device.connectDevice();
+    device.disconnectDevice();
     QCOMPARE(device.state(), QCanBusDevice::UnconnectedState);
 }
 
