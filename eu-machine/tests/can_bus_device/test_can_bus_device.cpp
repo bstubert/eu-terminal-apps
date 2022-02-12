@@ -12,8 +12,8 @@ private slots:
     void testConnectionSucceeded();
     void testConnectionFailed();
 
-    void testDisconnectWhenConnected();
-    void testDisconnectWhenNotConnected();
+    void testDisconnectDevice_data();
+    void testDisconnectDevice();
 };
 
 void TestCanBusDevice::testConnectionSucceeded()
@@ -31,20 +31,30 @@ void TestCanBusDevice::testConnectionFailed()
     QCOMPARE(device.state(), QCanBusDevice::UnconnectedState);
 }
 
-void TestCanBusDevice::testDisconnectWhenConnected()
+void TestCanBusDevice::testDisconnectDevice_data()
 {
-    MockCanBusDevice device;
-    device.setState(QCanBusDevice::ConnectedState);
-    device.disconnectDevice();
-    QCOMPARE(device.state(), QCanBusDevice::UnconnectedState);
+    QTest::addColumn<QCanBusDevice::CanBusDeviceState>("stateBefore");
+    QTest::addColumn<QCanBusDevice::CanBusDeviceState>("stateAfter");
+
+    QTest::newRow("Connected -> Unconnected")
+            << QCanBusDevice::ConnectedState << QCanBusDevice::UnconnectedState;
+    QTest::newRow("Closing -> Closing")
+            << QCanBusDevice::ClosingState << QCanBusDevice::ClosingState;
+    QTest::newRow("Unconnected -> Unconnected")
+            << QCanBusDevice::UnconnectedState << QCanBusDevice::UnconnectedState;
+    QTest::newRow("Connecting -> Unconnected")
+            << QCanBusDevice::ConnectingState << QCanBusDevice::UnconnectedState;
 }
 
-void TestCanBusDevice::testDisconnectWhenNotConnected()
+void TestCanBusDevice::testDisconnectDevice()
 {
+    QFETCH(QCanBusDevice::CanBusDeviceState, stateBefore);
+    QFETCH(QCanBusDevice::CanBusDeviceState, stateAfter);
+
     MockCanBusDevice device;
-    device.setState(QCanBusDevice::ClosingState);
+    device.setState(stateBefore);
     device.disconnectDevice();
-    QCOMPARE(device.state(), QCanBusDevice::ClosingState);
+    QCOMPARE(device.state(), stateAfter);
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)
