@@ -13,6 +13,7 @@ private slots:
     void testConnectionFailed();
 
     void testDisconnectWhenConnected();
+    void testDisconnectWhenNotConnected();
 };
 
 void TestCanBusDevice::testConnectionSucceeded()
@@ -33,9 +34,17 @@ void TestCanBusDevice::testConnectionFailed()
 void TestCanBusDevice::testDisconnectWhenConnected()
 {
     MockCanBusDevice device;
-    device.connectDevice();
+    device.setState(QCanBusDevice::ConnectedState);
     device.disconnectDevice();
     QCOMPARE(device.state(), QCanBusDevice::UnconnectedState);
+}
+
+void TestCanBusDevice::testDisconnectWhenNotConnected()
+{
+    MockCanBusDevice device;
+    device.setState(QCanBusDevice::ClosingState);
+    device.disconnectDevice();
+    QCOMPARE(device.state(), QCanBusDevice::ClosingState);
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)

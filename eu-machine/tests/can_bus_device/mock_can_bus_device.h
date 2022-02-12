@@ -8,6 +8,7 @@ class MockCanBusDevice : public QCanBusDevice
 {
 public:
     void setExpectedConnectionState(QCanBusDevice::CanBusDeviceState state);
+    void setState(QCanBusDevice::CanBusDeviceState state);
 
     bool writeFrame(const QCanBusFrame &frame) override;
     QString interpretErrorFrame(const QCanBusFrame &errorFrame) override;

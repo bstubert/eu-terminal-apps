@@ -8,6 +8,11 @@ void MockCanBusDevice::setExpectedConnectionState(QCanBusDevice::CanBusDeviceSta
     m_expectedConnectionState = state;
 }
 
+void MockCanBusDevice::setState(QCanBusDevice::CanBusDeviceState state)
+{
+    QCanBusDevice::setState(state);
+}
+
 bool MockCanBusDevice::writeFrame(const QCanBusFrame &frame)
 {
     return false;
