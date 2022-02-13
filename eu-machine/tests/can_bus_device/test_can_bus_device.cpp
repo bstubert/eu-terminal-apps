@@ -70,14 +70,12 @@ void TestCanBusDevice::testDisconnectDevice_data()
     QTest::addColumn<QCanBusDevice::CanBusDeviceState>("stateBefore");
     QTest::addColumn<QCanBusDevice::CanBusDeviceState>("stateAfter");
 
-    QTest::newRow("Connected -> Unconnected")
-            << QCanBusDevice::ConnectedState << QCanBusDevice::UnconnectedState;
+    QTest::newRow("Connecting -> Unconnected")
+            << QCanBusDevice::ConnectingState << QCanBusDevice::UnconnectedState;
     QTest::newRow("Closing -> Closing")
             << QCanBusDevice::ClosingState << QCanBusDevice::ClosingState;
     QTest::newRow("Unconnected -> Unconnected")
             << QCanBusDevice::UnconnectedState << QCanBusDevice::UnconnectedState;
-    QTest::newRow("Connecting -> Unconnected")
-            << QCanBusDevice::ConnectingState << QCanBusDevice::UnconnectedState;
 }
 
 void TestCanBusDevice::testDisconnectDevice()
@@ -89,6 +87,7 @@ void TestCanBusDevice::testDisconnectDevice()
     device.setState(stateBefore);
     device.disconnectDevice();
     QCOMPARE(device.state(), stateAfter);
+    QCOMPARE(device.error(), QCanBusDevice::NoError);
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)
