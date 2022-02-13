@@ -10,6 +10,7 @@ class TestCanBusDevice : public QObject
 
 private slots:
     void testConnectionSucceeded();
+    void testConnectionFailed_data();
     void testConnectionFailed();
 
     void testDisconnectDevice_data();
@@ -20,16 +21,36 @@ private slots:
 void TestCanBusDevice::testConnectionSucceeded()
 {
     MockCanBusDevice device;
+    QCOMPARE(device.state(), QCanBusDevice::UnconnectedState);
     QVERIFY(device.connectDevice());
     QCOMPARE(device.state(), QCanBusDevice::ConnectedState);
 }
 
+void TestCanBusDevice::testConnectionFailed_data()
+{
+    QTest::addColumn<QCanBusDevice::CanBusDeviceState>("stateBefore");
+    QTest::addColumn<bool>("openSucceeded");
+    QTest::addColumn<QCanBusDevice::CanBusDeviceState>("stateAfter");
+    QTest::addColumn<QCanBusDevice::CanBusError>("canError");
+
+    QTest::newRow("Unconnected + false -> Unconnected + NoError")
+            << QCanBusDevice::UnconnectedState << false
+            << QCanBusDevice::UnconnectedState << QCanBusDevice::NoError;
+}
+
 void TestCanBusDevice::testConnectionFailed()
 {
+    QFETCH(QCanBusDevice::CanBusDeviceState, stateBefore);
+    QFETCH(bool, openSucceeded);
+    QFETCH(QCanBusDevice::CanBusDeviceState, stateAfter);
+    QFETCH(QCanBusDevice::CanBusError, canError);
+
     MockCanBusDevice device;
-    device.setOpenSucceeded(false);
+    device.setState(stateBefore);
+    device.setOpenSucceeded(openSucceeded);
     QVERIFY(!device.connectDevice());
-    QCOMPARE(device.state(), QCanBusDevice::UnconnectedState);
+    QCOMPARE(device.state(), stateAfter);
+    QCOMPARE(device.error(), canError);
 }
 
 void TestCanBusDevice::testDisconnectDevice_data()
