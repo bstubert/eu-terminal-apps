@@ -15,7 +15,7 @@ void MockCanBusDevice::setState(QCanBusDevice::CanBusDeviceState state)
 
 bool MockCanBusDevice::writeFrame(const QCanBusFrame &frame)
 {
-    return false;
+    return true;
 }
 
 QString MockCanBusDevice::interpretErrorFrame(const QCanBusFrame &errorFrame)

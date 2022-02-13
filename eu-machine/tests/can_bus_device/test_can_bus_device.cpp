@@ -10,11 +10,14 @@ class TestCanBusDevice : public QObject
 
 private slots:
     void testConnectAndDisconnectDevice();
+
     void testConnectionFailed_data();
     void testConnectionFailed();
 
     void testDisconnectDevice_data();
     void testDisconnectDevice();
+
+    void testWriteFrame();
 };
 
 void TestCanBusDevice::testConnectAndDisconnectDevice()
@@ -88,6 +91,12 @@ void TestCanBusDevice::testDisconnectDevice()
     device.disconnectDevice();
     QCOMPARE(device.state(), stateAfter);
     QCOMPARE(device.error(), QCanBusDevice::NoError);
+}
+
+void TestCanBusDevice::testWriteFrame()
+{
+    MockCanBusDevice device;
+    QVERIFY(device.writeFrame(QCanBusFrame{}));
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)
