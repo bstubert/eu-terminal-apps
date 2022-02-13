@@ -16,6 +16,7 @@ private slots:
     void testDisconnectDevice();
 };
 
+// TODO: Introduce data-driven testConnectDevice.
 void TestCanBusDevice::testConnectionSucceeded()
 {
     MockCanBusDevice device;
@@ -26,7 +27,7 @@ void TestCanBusDevice::testConnectionSucceeded()
 void TestCanBusDevice::testConnectionFailed()
 {
     MockCanBusDevice device;
-    device.setExpectedConnectionState(QCanBusDevice::UnconnectedState);
+    device.setOpenSucceeded(false);
     QVERIFY(!device.connectDevice());
     QCOMPARE(device.state(), QCanBusDevice::UnconnectedState);
 }

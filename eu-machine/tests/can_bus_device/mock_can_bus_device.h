@@ -7,7 +7,7 @@
 class MockCanBusDevice : public QCanBusDevice
 {
 public:
-    void setExpectedConnectionState(QCanBusDevice::CanBusDeviceState state);
+    void setOpenSucceeded(bool succeeded);
     void setState(QCanBusDevice::CanBusDeviceState state);
 
     bool writeFrame(const QCanBusFrame &frame) override;
@@ -18,5 +18,5 @@ protected:
     void close() override;
 
 private:
-    QCanBusDevice::CanBusDeviceState m_expectedConnectionState{QCanBusDevice::ConnectedState};
+    bool m_openSucceeded{true};
 };

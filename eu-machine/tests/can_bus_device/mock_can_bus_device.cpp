@@ -3,9 +3,9 @@
 #include "mock_can_bus_device.h"
 
 
-void MockCanBusDevice::setExpectedConnectionState(QCanBusDevice::CanBusDeviceState state)
+void MockCanBusDevice::setOpenSucceeded(bool succeeded)
 {
-    m_expectedConnectionState = state;
+    m_openSucceeded = succeeded;
 }
 
 void MockCanBusDevice::setState(QCanBusDevice::CanBusDeviceState state)
@@ -25,8 +25,8 @@ QString MockCanBusDevice::interpretErrorFrame(const QCanBusFrame &errorFrame)
 
 bool MockCanBusDevice::open()
 {
-    setState(m_expectedConnectionState);
-    return state() == QCanBusDevice::ConnectedState;
+    setState(QCanBusDevice::ConnectedState);
+    return m_openSucceeded;
 }
 
 void MockCanBusDevice::close()
