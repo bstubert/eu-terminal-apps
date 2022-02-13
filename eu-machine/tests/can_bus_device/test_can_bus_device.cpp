@@ -35,7 +35,7 @@ void TestCanBusDevice::testConnectionFailed_data()
 
     QTest::newRow("Unconnected + false -> Unconnected + NoError")
             << QCanBusDevice::UnconnectedState << false
-            << QCanBusDevice::UnconnectedState << QCanBusDevice::NoError;
+            << QCanBusDevice::UnconnectedState << QCanBusDevice::ConnectionError;
 }
 
 void TestCanBusDevice::testConnectionFailed()

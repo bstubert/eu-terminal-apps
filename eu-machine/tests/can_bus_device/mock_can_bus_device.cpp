@@ -27,6 +27,7 @@ bool MockCanBusDevice::open()
 {
     if (!m_openSucceeded)
     {
+        setError(u"Open failed"_qs, QCanBusDevice::ConnectionError);
         return false;
     }
     setState(QCanBusDevice::ConnectedState);
