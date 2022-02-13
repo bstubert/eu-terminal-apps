@@ -17,7 +17,6 @@ private slots:
     void testDisconnectDevice();
 };
 
-// TODO: Introduce data-driven testConnectDevice.
 void TestCanBusDevice::testConnectionSucceeded()
 {
     MockCanBusDevice device;
@@ -33,9 +32,18 @@ void TestCanBusDevice::testConnectionFailed_data()
     QTest::addColumn<QCanBusDevice::CanBusDeviceState>("stateAfter");
     QTest::addColumn<QCanBusDevice::CanBusError>("canError");
 
-    QTest::newRow("Unconnected + false -> Unconnected + NoError")
+    QTest::newRow("Unconnected + false -> Unconnected + ConnectionError")
             << QCanBusDevice::UnconnectedState << false
             << QCanBusDevice::UnconnectedState << QCanBusDevice::ConnectionError;
+    QTest::newRow("Connected + true -> Connected + ConnectionError")
+            << QCanBusDevice::ConnectedState << true
+            << QCanBusDevice::ConnectedState << QCanBusDevice::ConnectionError;
+    QTest::newRow("Connecting + false -> Connecting + ConnectionError")
+            << QCanBusDevice::ConnectingState << false
+            << QCanBusDevice::ConnectingState << QCanBusDevice::ConnectionError;
+    QTest::newRow("Closing + true -> Closing + ConnectionError")
+            << QCanBusDevice::ClosingState << true
+            << QCanBusDevice::ClosingState << QCanBusDevice::ConnectionError;
 }
 
 void TestCanBusDevice::testConnectionFailed()
