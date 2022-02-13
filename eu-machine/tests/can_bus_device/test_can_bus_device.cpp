@@ -1,5 +1,6 @@
 // Copyright, Burkhard Stubert (burkhard.stubert@embeddeduse.com)
 
+#include <QSignalSpy>
 #include <QtTest>
 
 #include "mock_can_bus_device.h"
@@ -96,7 +97,9 @@ void TestCanBusDevice::testDisconnectDevice()
 void TestCanBusDevice::testWriteFrame()
 {
     MockCanBusDevice device;
+    QSignalSpy spy{&device, &QCanBusDevice::framesWritten};
     QVERIFY(device.writeFrame(QCanBusFrame{}));
+    QCOMPARE(spy.count(), 1);
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)
