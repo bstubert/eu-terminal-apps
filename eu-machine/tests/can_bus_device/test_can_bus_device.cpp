@@ -21,6 +21,7 @@ private slots:
     void testWriteFrame();
     void testWriteNoFrameWhenNotConnected();
     void testWriteFrameFails();
+    void testWritingInvalidFrameFails();
 };
 
 void TestCanBusDevice::testConnectAndDisconnectDevice()
@@ -125,6 +126,18 @@ void TestCanBusDevice::testWriteFrameFails()
     device.connectDevice();
     device.setWriteSucceeded(false);
     QVERIFY(!device.writeFrame(QCanBusFrame{}));
+    QCOMPARE(device.error(), QCanBusDevice::WriteError);
+    auto frames = device.recordedFrames();
+    QCOMPARE(frames.count(), 0);
+    QCOMPARE(spy.count(), frames.count());
+}
+
+void TestCanBusDevice::testWritingInvalidFrameFails()
+{
+    MockCanBusDevice device;
+    QSignalSpy spy{&device, &QCanBusDevice::framesWritten};
+    device.connectDevice();
+    QVERIFY(!device.writeFrame(QCanBusFrame{QCanBusFrame::InvalidFrame}));
     QCOMPARE(device.error(), QCanBusDevice::WriteError);
     auto frames = device.recordedFrames();
     QCOMPARE(frames.count(), 0);

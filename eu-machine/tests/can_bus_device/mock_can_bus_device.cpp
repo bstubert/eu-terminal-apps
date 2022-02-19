@@ -29,6 +29,11 @@ bool MockCanBusDevice::writeFrame(const QCanBusFrame &frame)
     {
         return false;
     }
+    if (!frame.isValid())
+    {
+        setError(u"Writing invalid frame failed"_qs, QCanBusDevice::WriteError);
+        return false;
+    }
     if (!m_writeSucceeded)
     {
         setError(u"Writing frame failed"_qs, QCanBusDevice::WriteError);
