@@ -28,6 +28,7 @@ private slots:
 
     void testReadFramesOneByOne();
     void testReadAllFrames();
+    void testReceivingFramesFails();
 };
 
 void TestCanBusDevice::testConnectAndDisconnectDevice()
@@ -181,6 +182,16 @@ void TestCanBusDevice::testReadAllFrames()
     auto frames = device.readAllFrames();
     QCOMPARE(frames[0].toString(), frame1.toString());
     QCOMPARE(frames[1].toString(), frame2.toString());
+    QCOMPARE(device.framesAvailable(), 0);
+}
+
+void TestCanBusDevice::testReceivingFramesFails()
+{
+    MockCanBusDevice device;
+    device.connectDevice();
+    device.setReadSucceeded(false);
+    device.receiveFrames({frame1, frame2});
+    QCOMPARE(device.error(), QCanBusDevice::ReadError);
     QCOMPARE(device.framesAvailable(), 0);
 }
 

@@ -13,6 +13,11 @@ void MockCanBusDevice::setWriteSucceeded(bool succeeded)
     m_writeSucceeded = succeeded;
 }
 
+void MockCanBusDevice::setReadSucceeded(bool succeeded)
+{
+    m_readSucceeded = succeeded;
+}
+
 void MockCanBusDevice::setState(QCanBusDevice::CanBusDeviceState state)
 {
     QCanBusDevice::setState(state);
@@ -25,6 +30,11 @@ QVector<QCanBusFrame> MockCanBusDevice::recordedFrames() const
 
 void MockCanBusDevice::receiveFrames(const QVector<QCanBusFrame> &frames)
 {
+    if (!m_readSucceeded)
+    {
+        setError(u"Reading frames failed"_qs, QCanBusDevice::ReadError);
+        return;
+    }
     enqueueReceivedFrames(frames);
 }
 
