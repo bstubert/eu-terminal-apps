@@ -19,6 +19,7 @@ private slots:
     void testDisconnectDevice();
 
     void testWriteFrame();
+    void testWriteNoFrameWhenNotConnected();
 };
 
 void TestCanBusDevice::testConnectAndDisconnectDevice()
@@ -98,11 +99,22 @@ void TestCanBusDevice::testWriteFrame()
 {
     MockCanBusDevice device;
     QSignalSpy spy{&device, &QCanBusDevice::framesWritten};
+    device.connectDevice();
     QVERIFY(device.writeFrame(QCanBusFrame{}));
     auto frames = device.recordedFrames();
     QCOMPARE(frames.count(), 1);
     QCOMPARE(spy.count(), frames.count());
     QCOMPARE(frames[0].toString(), QCanBusFrame{}.toString());
+}
+
+void TestCanBusDevice::testWriteNoFrameWhenNotConnected()
+{
+    MockCanBusDevice device;
+    QSignalSpy spy{&device, &QCanBusDevice::framesWritten};
+    QVERIFY(!device.writeFrame(QCanBusFrame{}));
+    auto frames = device.recordedFrames();
+    QCOMPARE(frames.count(), 0);
+    QCOMPARE(spy.count(), frames.count());
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)

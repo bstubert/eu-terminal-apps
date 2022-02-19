@@ -20,6 +20,10 @@ QVector<QCanBusFrame> MockCanBusDevice::recordedFrames() const
 
 bool MockCanBusDevice::writeFrame(const QCanBusFrame &frame)
 {
+    if (state() != ConnectedState)
+    {
+        return false;
+    }
     m_recordedFrames.append(frame);
     emit framesWritten(1);
     return true;
