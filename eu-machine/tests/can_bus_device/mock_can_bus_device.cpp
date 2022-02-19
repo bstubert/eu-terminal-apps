@@ -13,8 +13,14 @@ void MockCanBusDevice::setState(QCanBusDevice::CanBusDeviceState state)
     QCanBusDevice::setState(state);
 }
 
+QVector<QCanBusFrame> MockCanBusDevice::recordedFrames() const
+{
+    return m_recordedFrames;
+}
+
 bool MockCanBusDevice::writeFrame(const QCanBusFrame &frame)
 {
+    m_recordedFrames.append(frame);
     emit framesWritten(1);
     return true;
 }

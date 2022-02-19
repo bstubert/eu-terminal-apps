@@ -99,7 +99,10 @@ void TestCanBusDevice::testWriteFrame()
     MockCanBusDevice device;
     QSignalSpy spy{&device, &QCanBusDevice::framesWritten};
     QVERIFY(device.writeFrame(QCanBusFrame{}));
-    QCOMPARE(spy.count(), 1);
+    auto frames = device.recordedFrames();
+    QCOMPARE(frames.count(), 1);
+    QCOMPARE(spy.count(), frames.count());
+    QCOMPARE(frames[0].toString(), QCanBusFrame{}.toString());
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)
