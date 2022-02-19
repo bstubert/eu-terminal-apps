@@ -23,6 +23,11 @@ QVector<QCanBusFrame> MockCanBusDevice::recordedFrames() const
     return m_recordedFrames;
 }
 
+void MockCanBusDevice::receiveFrames(const QVector<QCanBusFrame> &frames)
+{
+    enqueueReceivedFrames(frames);
+}
+
 bool MockCanBusDevice::writeFrame(const QCanBusFrame &frame)
 {
     if (state() != ConnectedState)

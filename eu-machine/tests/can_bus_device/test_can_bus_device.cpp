@@ -9,6 +9,9 @@ class TestCanBusDevice : public QObject
 {
     Q_OBJECT
 
+    const QCanBusFrame frame1{1U, QByteArray{8, 1}};
+    const QCanBusFrame frame2{2U, QByteArray{8, 2}};
+
 private slots:
     void testConnectAndDisconnectDevice();
 
@@ -22,6 +25,9 @@ private slots:
     void testWriteNoFrameWhenNotConnected();
     void testWriteFrameFails();
     void testWritingInvalidFrameFails();
+
+    void testReadFramesOneByOne();
+    void testReadAllFrames();
 };
 
 void TestCanBusDevice::testConnectAndDisconnectDevice()
@@ -142,6 +148,40 @@ void TestCanBusDevice::testWritingInvalidFrameFails()
     auto frames = device.recordedFrames();
     QCOMPARE(frames.count(), 0);
     QCOMPARE(spy.count(), frames.count());
+}
+
+void TestCanBusDevice::testReadFramesOneByOne()
+{
+    MockCanBusDevice device;
+    QSignalSpy spy{&device, &QCanBusDevice::framesReceived};
+    device.connectDevice();
+    device.receiveFrames({frame1, frame2});
+    QCOMPARE(spy.count(), 1);
+
+    QCOMPARE(device.framesAvailable(), 2);
+    auto frame = device.readFrame();
+    QCOMPARE(frame.toString(), frame1.toString());
+
+    QCOMPARE(device.framesAvailable(), 1);
+    frame = device.readFrame();
+    QCOMPARE(frame.toString(), frame2.toString());
+
+    QCOMPARE(device.framesAvailable(), 0);
+}
+
+void TestCanBusDevice::testReadAllFrames()
+{
+    MockCanBusDevice device;
+    QSignalSpy spy{&device, &QCanBusDevice::framesReceived};
+    device.connectDevice();
+    device.receiveFrames({frame1, frame2});
+    QCOMPARE(spy.count(), 1);
+
+    QCOMPARE(device.framesAvailable(), 2);
+    auto frames = device.readAllFrames();
+    QCOMPARE(frames[0].toString(), frame1.toString());
+    QCOMPARE(frames[1].toString(), frame2.toString());
+    QCOMPARE(device.framesAvailable(), 0);
 }
 
 QTEST_GUILESS_MAIN(TestCanBusDevice)
