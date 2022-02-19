@@ -8,6 +8,11 @@ void MockCanBusDevice::setOpenSucceeded(bool succeeded)
     m_openSucceeded = succeeded;
 }
 
+void MockCanBusDevice::setWriteSucceeded(bool succeeded)
+{
+    m_writeSucceeded = succeeded;
+}
+
 void MockCanBusDevice::setState(QCanBusDevice::CanBusDeviceState state)
 {
     QCanBusDevice::setState(state);
@@ -22,6 +27,11 @@ bool MockCanBusDevice::writeFrame(const QCanBusFrame &frame)
 {
     if (state() != ConnectedState)
     {
+        return false;
+    }
+    if (!m_writeSucceeded)
+    {
+        setError(u"Writing frame failed"_qs, QCanBusDevice::WriteError);
         return false;
     }
     m_recordedFrames.append(frame);

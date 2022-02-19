@@ -10,6 +10,7 @@ class MockCanBusDevice : public QCanBusDevice
 {
 public:
     void setOpenSucceeded(bool succeeded);
+    void setWriteSucceeded(bool succeeded);
     void setState(QCanBusDevice::CanBusDeviceState state);
     QVector<QCanBusFrame> recordedFrames() const;
 
@@ -22,5 +23,6 @@ protected:
 
 private:
     bool m_openSucceeded{true};
+    bool m_writeSucceeded{true};
     QVector<QCanBusFrame> m_recordedFrames;
 };
