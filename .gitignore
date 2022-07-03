@@ -33,3 +33,6 @@
 
 *.txt.user
 build-*/
+.structurizr/
+workspace.json
+
