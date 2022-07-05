@@ -36,6 +36,10 @@ workspace {
             calibrationApp = container "Calibration App" "" "QML, Qt, C++" {
                 tags "ManyApps"
             }
+            
+            moreApps = container "App 1...N" "" "QML, Qt, C++" {
+                tags "ManyApps"
+            }
            
             windowAppMgr -> terminalApp "Shows/hides" "Wayland" {
                tags "SingleApp" "FewApps" "ManyApps"
@@ -51,6 +55,9 @@ workspace {
             }
             windowAppMgr -> updateApp "Shows/hides" "Wayland" {
                tags "FewApps" "ManyApps"
+            }
+            windowAppMgr -> moreApps "Shows/hides" "Wayland" {
+               tags "ManyApps"
             }
             windowAppMgr -> vncServer "Sends display frames" "Wayland" {
                tags "FewApps" "ManyApps"
@@ -82,6 +89,9 @@ workspace {
             calibrationApp -> j1939Service "Sends/receives machine data" "Qt Remote Objects" {
                tags "ManyApps"
             }
+            moreApps -> j1939Service "Sends/receives machine data" "Qt Remote Objects" {
+               tags "ManyApps"
+            }
         }
         driver = person "Driver" {
             tags "TerminalContext"
@@ -89,7 +99,7 @@ workspace {
         }
         iotCloud = softwareSystem "IoT Cloud" {
             tags "TerminalContext"
-            description "Monitoring harvesters, OTA updates"
+            description "Monitoring harvesters, OTA updates, remote support"
         }
         harvesterEcus = softwareSystem "Harvester ECUs" {
             tags "TerminalContext"
@@ -115,6 +125,9 @@ workspace {
             tags "SingleApp" "FewApps" "ManyApps"
         }
         iotClient -> iotCloud "Logs machine data" "MQTT over LTE-M" {
+            tags "FewApps" "ManyApps"
+        }
+        vncServer -> iotCloud "Mirror display frames" "VNC over LTE-M" {
             tags "FewApps" "ManyApps"
         }
         iotCloud -> updateApp "Installs updates" "HTTPS" {
