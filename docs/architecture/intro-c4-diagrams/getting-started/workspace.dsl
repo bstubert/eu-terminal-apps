@@ -8,7 +8,7 @@ workspace {
     }
 
     views {
-        systemContext terminal "TerminalContext" {
+        systemContext terminal TerminalContext {
             include *
             autoLayout lr
         }
