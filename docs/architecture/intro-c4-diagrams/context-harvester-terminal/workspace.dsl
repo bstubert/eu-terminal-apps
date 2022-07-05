@@ -15,12 +15,12 @@ workspace {
             tags "TerminalContext"
             description "Controlling header, engine, conveyor belts, bunker"
         }
-        harvesterCams = softwareSystem "Harvester Cameras" {
-            description "Rear-view, turbine, bunker and header cameras"
-        }
         operatingConditions = element "Operating Conditions" "Constraint" {
             tags "Constraint"
             description "Temperature, light, dust, water, vibration"
+        }
+        harvesterCams = softwareSystem "Harvester Cameras" {
+            description "Rear-view, turbine, bunker and header cameras"
         }
 
         driver -> terminal "Uses"
