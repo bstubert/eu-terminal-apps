@@ -11,7 +11,6 @@ workspace {
                 tags "Focus"
                 technology "QML, Qt, C++"
             }
-            windowAppMgr -> terminalApp "Shows/hides" "Wayland"
         }
         driver = person "Driver" {
             tags "TerminalContext"
@@ -43,6 +42,7 @@ workspace {
         operatingConditions -> terminal "Impacts"
 
         # Relationships between TerminalContext and terminal applications
+        windowAppMgr -> terminalApp "Shows/hides" "Wayland"
         driver -> windowAppMgr "Uses"
         operatingConditions -> windowAppMgr "Impacts"
         harvesterCams -> terminalApp "Sends video frames" "Ethernet: 100 Mbps"
